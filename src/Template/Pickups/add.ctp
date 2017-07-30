@@ -34,7 +34,7 @@ $( function() {
     });
 });
 </script>
-<h1>Organic Waste Tracking</h1>
+<h3>Organic Waste Tracking</h3>
 <?= $this->Form->create($pickup, ['id' => 'addForm'])?>
 <?= $this->Form->control('client_id', ['empty' => true, 'default' => $clientId])?>
 <?php if ($clientId) { ?>
@@ -45,10 +45,19 @@ $( function() {
         } else {
             echo $this->Form->control('location_id', ['type'=>'hidden', 'value'=>$locationId]);
         }
+    echo "<hr/>";
     foreach ($containers as $container) {
         $i = 0;
         foreach ($container["containers"] as $item) {?>
             <div class="row">
+               <div class="col-md-10">
+                    <?= $this->Form->control("containers." . $i . ".id", ['type' => 'hidden', 'value' => ($i+1)])?>
+                    <div class="form-group">
+                        <label>Container</label>
+                        <div class="containerName"><?=$item['name']?></div>
+                        <?= $this->Form->control("containers." . $i . "._joinData.container_id", ['type' => 'hidden', 'value' => $item['id']])?>
+                    </div>
+                </div>
                 <div class="col-md-2 add-quantity">
                     <div class="input-group">
                         <span class="input-group-btn">
@@ -64,21 +73,13 @@ $( function() {
                         </span>
                     </div>
                 </div>
-                <div class="col-md-10">
-                    <?= $this->Form->control("containers." . $i . ".id", ['type' => 'hidden', 'value' => ($i+1)])?>
-                    <div class="form-group">
-                        <label>Container</label>
-                        <div class="containerName"><?=$item['name']?></div>
-                        <?= $this->Form->control("containers." . $i . "._joinData.container_id", ['type' => 'hidden', 'value' => $item['id']])?>
-                    </div>
-                </div>
             </div>
             <br/>
         <?php $i++; 
             }?>
     <?php 
         }?>
-
+        <hr/>
         <?= $this->Form->control('pounds'); ?> 
         <?= $this->Form->control('note', ['autocomplete' => 'off'])?>
         <p>
