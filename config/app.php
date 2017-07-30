@@ -226,18 +226,18 @@ return [
             'persistent' => false,
 
             /* Heroku */
-            /*'driver' => 'Cake\Database\Driver\Postgres',
+            'driver' => 'Cake\Database\Driver\Postgres',
             'host' => $DATABASE_URL['host'],
             'username' => $DATABASE_URL['user'],
             'password' => $DATABASE_URL['pass'],
-            'database' => substr($DATABASE_URL['path'], 1),*/
+            'database' => substr($DATABASE_URL['path'], 1),
 
             /* Local */
-            'driver' => 'Cake\Database\Driver\Mysql',
+            /*'driver' => 'Cake\Database\Driver\Mysql',
             'host' => 'localhost',
             'username' => 'root',
             'password' => '',
-            'database' => 'rbr',
+            'database' => 'rbr',*/
 
             'encoding' => 'utf8',
             'timezone' => 'UTC',
