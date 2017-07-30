@@ -1,0 +1,29 @@
+body {
+    background-color: #CAE6C7;
+}
+
+.navbar-brand > img {
+    height: 30px;
+}
+
+/* Pickup */
+#savePickup, #noteButton {
+    width: 100%;
+}
+
+.add-quantity input {
+    text-align: center;
+}
+
+#pounds {
+    text-align: center;
+}
+
+.input-group-btn {
+    vertical-align: bottom;
+}
+
+.containerName {
+    margin-left: 1em;
+    margin-top: 8px;
+}
