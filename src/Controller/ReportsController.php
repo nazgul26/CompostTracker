@@ -22,8 +22,8 @@ class ReportsController extends AppController
         $pickups = TableRegistry::get('Pickups');
         $requestData = $this->request->getData();
         $clientId = $requestData['client_id'];
-        $startDate = new Time($requestData['start_date']['year'] . '/' . $requestData['start_date']['month'] . '/' . $requestData['start_date']['day']);
-        $endDate = new Time($requestData['end_date']['year'] . '/' . $requestData['end_date']['month'] . '/' . $requestData['end_date']['day']);
+        $startDate = new Time($requestData['start_date']['year'] . '/' . $requestData['start_date']['month'] . '/' . $requestData['start_date']['day'] . " 00:00");
+        $endDate = new Time($requestData['end_date']['year'] . '/' . $requestData['end_date']['month'] . '/' . $requestData['end_date']['day'] . " 24:00");
 
 		$this->response->download("report.csv");
 

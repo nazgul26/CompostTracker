@@ -36,30 +36,19 @@ $cakeDescription = 'Rust Belt Riders';
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-            <a class="navbar-brand" href="#">
-                <?= $this->Html->image("logo.png", ["alt" => "RBR"])?>
-            </a>
-            </div>
-            <div>
-                <ul class="nav navbar-nav">
-                    
-                    <li class="active">
-                        <?= $this->Html->link('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>', 
-                            ['controller' => 'Pickups', 'action' => 'add'],
-                            ['escape' => false])?>
-                    </li>
-                    <li>
-                        <?= $this->Html->link('<span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>', 
-                            ['controller' => 'Pages', 'action' => 'home'],
-                            ['escape' => false])?>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div class="navigation container-fluid">
+        <span>
+        <?= $this->Html->image("logo.png", ["alt" => "RBR"])?>
+        </span>
+        <?= $this->Html->link('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>', 
+            ['controller' => 'Pickups', 'action' => 'add'],
+            ['escape' => false, 'title' => 'Add Pickup'])?>
+
+        <?= $this->Html->link('<span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>', 
+            ['controller' => 'Pages', 'action' => 'home'],
+            ['escape' => false, 'class' => 'pull-right', 'title' => 'Menu Options'])?>
+    </div>
+    
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
         <div class="panel panel-default">
