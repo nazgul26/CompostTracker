@@ -3,15 +3,18 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\I18n\Time;
+use Cake\Core\Configure;
 
 class PickupsController extends AppController
 {
+    public function isAuthorized($user = null) {
+        if ($user['access_level'] >= Configure::read('AuthRoles.user')) {
+            return true;
+        }
+        
+        return parent::isAuthorized($user);
+    }
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|void
-     */
     public function index()
     {
         $this->paginate = [
@@ -28,13 +31,6 @@ class PickupsController extends AppController
         $this->set('_serialize', ['pickups']);
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Pickup id.
-     * @return \Cake\Http\Response|void
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function view($id = null)
     {
         $pickup = $this->Pickups->get($id, [
@@ -77,13 +73,6 @@ class PickupsController extends AppController
         $this->set('_serialize', ['pickup']);
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Pickup id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
     public function edit($id = null)
     {
         $pickup = $this->Pickups->get($id, [
@@ -104,13 +93,6 @@ class PickupsController extends AppController
         $this->set('_serialize', ['pickup']);
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Pickup id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);

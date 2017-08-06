@@ -223,3 +223,9 @@ if (Configure::read('debug')) {
 }
 
 Plugin::load('BootstrapUI');
+
+Configure::write('AuthRoles', array(
+    'client' => 30, // External access
+    'user' => 60, // add pickups only
+    'admin'=> 90 // Site Admin Level Access
+));

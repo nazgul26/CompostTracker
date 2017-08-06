@@ -5,9 +5,19 @@ use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use App\Form\ReportsForm;
 use Cake\I18n\Time;
+use Cake\Core\Configure;
 
 class ReportsController extends AppController
 {
+    public function isAuthorized($user = null) {
+        if ($user['access_level'] >= Configure::read('AuthRoles.user')) {
+            return true;
+        }
+        
+        return parent::isAuthorized($user);
+    }
+
+
     public function index()
     {
         $report = new ReportsForm();
