@@ -37,6 +37,36 @@ class ReportsController extends AppController
 
 		$this->response->download("report.csv");
 
+        $conditions = [
+            'Pickups.pickup_date >=' => $startDate,
+            'Pickups.pickup_date <=' => $endDate];
+
+        if ($clientId) {
+            $conditions['Clients.id'] = $clientId;
+        }
+        
+		$pickups = $pickups->find('all',
+            [
+                'conditions' => $conditions,
+                'contain' => [
+                    'Users', 
+                    'Locations' => 
+                        ['Sites' => ['Clients']],
+                    'Containers'
+                    ],
+                'order' => ['Pickups.pickup_date' => 'DESC']
+            ]);
+		$this->set(compact('pickups'));
+		return;
+	}
+
+    public function summary() {
+        $pickups = TableRegistry::get('Pickups');
+        $requestData = $this->request->getData();
+        $clientId = $requestData['client_id'];
+        $startDate = new Time($requestData['start_date']['year'] . '/' . $requestData['start_date']['month'] . '/' . $requestData['start_date']['day'] . " 00:00");
+        $endDate = new Time($requestData['end_date']['year'] . '/' . $requestData['end_date']['month'] . '/' . $requestData['end_date']['day'] . " 24:00");
+        
 		$pickups = $pickups->find('all',
             [
                 'conditions' => [
@@ -54,6 +84,6 @@ class ReportsController extends AppController
             ]);
 		$this->set(compact('pickups'));
 		return;
-	}
+    }
 
 }

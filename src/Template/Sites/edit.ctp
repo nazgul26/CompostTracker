@@ -1,5 +1,5 @@
 <ol class="breadcrumb">
-  <li><?= $this->Html->link(__('Clients'), ['contoller'=>'clients', 'action' => 'index'])?></li>
+  <li><?= $this->Html->link(__('Clients'), ['controller'=>'clients', 'action' => 'index'])?></li>
   <li><?= $this->Html->link(__('Edit Client'), ['controller'=>'clients', 'action' => 'edit', $clientId])?></li>
   <li class="active"><?= ($siteId) ? "Edit Site" : "Add Site"?></li>
 </ol>

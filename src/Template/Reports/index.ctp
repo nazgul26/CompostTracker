@@ -2,7 +2,7 @@
     <?= $this->Form->create($report, ['url' => ['action' => 'export']]) ?>
     <fieldset>
         <legend>Reporting</legend>
-        <?= $this->Form->control('client_id'); ?>
+        <?= $this->Form->control('client_id', ['empty' => '(All)']); ?>
         <?= $this->Form->control('start_date'); ?>
         <?= $this->Form->control('end_date'); ?>
     </fieldset>

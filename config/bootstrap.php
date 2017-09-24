@@ -229,3 +229,11 @@ Configure::write('AuthRoles', array(
     'user' => 60, // add pickups only
     'admin'=> 90 // Site Admin Level Access
 ));
+
+// For UI / Edit
+Configure::write('AuthRolesList', array(
+    0 => '',
+    30 => 'Client', // External access
+    60 => 'User', // add pickups only
+    90 => 'Administrator' // Site Admin Level Access
+));
