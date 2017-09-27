@@ -13,6 +13,7 @@ CREATE TABLE users (
 	`email` VARCHAR(64) NOT NULL UNIQUE,
 	`created` DATETIME,
 	`modified` DATETIME,
+	`client_id` INT NULL REFERENCES clients(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
 	PRIMARY KEY (id)
 );
 

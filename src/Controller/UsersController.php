@@ -34,9 +34,6 @@ class UsersController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $request = $this->request->getData();
-            echo "<pre>";
-            echo print_r($request);
-            echo "</pre>";
             if ($request['password1'] === $request['password2']) {
                 // only pass on the password when there is a value (and it matches the confirm)
                 if (!empty($request['password2'])) {  
@@ -54,7 +51,8 @@ class UsersController extends AppController
                 $this->Flash->error(__('Passwords do not match.'));
             }
         }
-        $this->set(compact('user', 'userId'));
+        $clients = $this->Users->Clients->find('list', ['limit' => 200]);
+        $this->set(compact('user', 'userId', 'clients'));
     }
 
     public function login()
@@ -106,6 +104,7 @@ class UsersController extends AppController
                         ->viewVars(array('resetLink' => Router::url( array('controller'=>'users','action'=>'resetLink'), true ).'/'.$hashedKey))
                         ->to($user->email)
                         ->subject('Password Reset')
+                        ->replyTo('support@rustbeltriders.com')
                         ->send();
 
                     $this->Flash->success(__('Your reset email is on the way!'));

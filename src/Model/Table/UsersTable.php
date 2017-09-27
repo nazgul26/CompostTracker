@@ -5,6 +5,19 @@ use Cake\Validation\Validator;
 
 class UsersTable extends Table
 {
+    public function initialize(array $config)
+    {
+        parent::initialize($config);
+
+        $this->setTable('users');
+        $this->setDisplayField('email');
+        $this->setPrimaryKey('id');
+
+        $this->belongsTo('Clients', [
+            'foreignKey' => 'client_id',
+            'joinType' => 'INNER'
+        ]);
+    }
 
     public function validationDefault(Validator $validator)
     {

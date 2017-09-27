@@ -11,9 +11,10 @@ use Cake\Core\Configure;
         <?= $this->Form->control('username') ?>
         <?= $this->Form->control('name') ?>
         <?= $this->Form->control('email') ?>
-        <?= $this->Form->control('password1', ['label' => 'Password']) ?>
-        <?= $this->Form->control('password2', ['label' => 'Confirm Password']) ?>
+        <?= $this->Form->control('password1', ['label' => 'Password', 'type' => 'password']) ?>
+        <?= $this->Form->control('password2', ['label' => 'Confirm Password', 'type' => 'password']) ?>
         <?= $this->Form->input('access_level', array('options' => Configure::read('AuthRolesList'))) ?>
+        <?= $this->Form->input('client_id',['empty' => true]) ?>
    </fieldset>
 <?= $this->Form->button(__('Submit')); ?>
 <?= $this->Form->end() ?>
