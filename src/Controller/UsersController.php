@@ -101,7 +101,7 @@ class UsersController extends AppController
                     $email->from(array('app@rustbeltriders.com' => 'Rust Belt Riders'))
                         ->template('reset', 'default')
                         ->emailFormat('both')
-                        ->viewVars(array('resetLink' => Router::url( array('controller'=>'users','action'=>'resetLink'), true ).'/'.$hashedKey))
+                        ->viewVars(array('resetLink' => Router::url( ['controller'=>'users','action'=>'resetLink', '_ssl' => true], true ).'/'.$hashedKey))
                         ->to($user->email)
                         ->subject('Password Reset')
                         ->replyTo('support@rustbeltriders.com')
