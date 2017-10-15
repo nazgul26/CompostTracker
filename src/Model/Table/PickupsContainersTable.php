@@ -37,7 +37,9 @@ class PickupsContainersTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->belongsToMany('Pickups');
+        $this->belongsToMany('Pickups', [
+            'saveStrategy' => 'replace'
+        ]);
         $this->belongsToMany('Containers');
     }
 

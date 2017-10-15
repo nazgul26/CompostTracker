@@ -39,7 +39,8 @@ class PickupsTable extends Table
         ]);
 
         $this->belongsToMany('Containers', [
-            'joinTable' => 'pickups_containers'
+            'joinTable' => 'pickups_containers',
+            'saveStrategy' => 'replace'
         ]);
     }
 

@@ -7,9 +7,18 @@ use Cake\Mailer\Email;
 use Cake\Utility\Security;
 use Cake\Utility\Text;
 use Cake\Routing\Router;
+use Cake\Core\Configure;
 
 class UsersController extends AppController
 {
+    public function isAuthorized($user = null) {
+        if ($user['access_level'] >= Configure::read('AuthRoles.user')) {
+            return true;
+        }
+        
+        return parent::isAuthorized($user);
+    }
+
     public function index()
     {
         $this->set('users', $this->Users->find('all'));
@@ -23,6 +32,12 @@ class UsersController extends AppController
 
     public function edit($userId = null)
     {
+        $authLevel = $this->Auth->user('access_level');
+        $isAdmin = false;
+        if ($authLevel >= Configure::read('AuthRoles.admin')) {
+            $isAdmin = true;
+        }
+
         // Edit
         if ($userId) {
             $user = $this->Users->get($userId);
@@ -52,7 +67,7 @@ class UsersController extends AppController
             }
         }
         $clients = $this->Users->Clients->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'userId', 'clients'));
+        $this->set(compact('user', 'userId', 'clients', 'isAdmin'));
     }
 
     public function login()

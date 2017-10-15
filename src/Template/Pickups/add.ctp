@@ -28,10 +28,6 @@ $( function() {
     $('#site-id').change(function() {
         window.location = "<?=$addUrl?>/<?= $clientId?>/" +  $(this).val();
     });
-
-    $('#collapseNote').on('shown.bs.collapse', function () {
-        $('#note').focus();
-    });
 });
 </script>
 <h3>Organic Waste Tracking</h3>
@@ -46,6 +42,9 @@ $( function() {
             echo $this->Form->control('location_id', ['type'=>'hidden', 'value'=>$locationId]);
         }
     echo "<hr/>";
+    if ($containers->count() == 0) {
+        echo '<div class="alert alert-danger">No Locations Setup</div>';
+    }
     foreach ($containers as $container) {
         $i = 0;
         foreach ($container["containers"] as $item) {?>

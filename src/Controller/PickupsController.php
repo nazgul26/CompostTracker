@@ -50,7 +50,7 @@ class PickupsController extends AppController
             date_default_timezone_set('US/Eastern');
             $requestData['pickup_date'] = date("Y-m-d H:i:s");
             $requestData['user_id'] = $this->Auth->user('id');
-            $pickup = $this->Pickups->patchEntity($pickup, $requestData, 
+            $pickup = $this->Pickups->patchEntity($pickup, $requestData ,
                 ['associated' => ['Containers', 'Containers._joinData']]
             );
 
@@ -65,7 +65,7 @@ class PickupsController extends AppController
         $sites = $this->Pickups->Locations->Sites->find('list', ['conditions' => ['Sites.client_id' => $clientId], 'limit' => 200]);
         $locations = $this->Pickups->Locations->find('list')->where(['Locations.site_id' => $siteId])->limit(200);
 
-        if (!isset($locationId) && $siteId) {
+        if (!isset($locationId) && $siteId && $locations->count() > 0) {
             $locationId = array_keys($locations->toArray())[0];
         }
         $containers = $this->Pickups->Locations->find('all')->where(['Locations.id' => $locationId])->contain(['Containers'])->limit(200);
@@ -76,20 +76,35 @@ class PickupsController extends AppController
     public function edit($id = null)
     {
         $pickup = $this->Pickups->get($id, [
-            'contain' => []
+            'contain' => [
+                'Users', 
+                'Locations' => 
+                    ['Sites' => ['Clients']],
+                'Containers'
+            ]
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $pickup = $this->Pickups->patchEntity($pickup, $this->request->getData());
+            
+            //$this->Pickups->association('PickupsContainers')->saveStrategy();
+            $pickup = $this->Pickups->patchEntity($pickup, $this->request->getData()
+                ,['associated' => ['Containers._joinData']]
+            );
+            //echo "<pre>";
+            //echo print_r($pickup);
+
             if ($this->Pickups->save($pickup)) {
+
                 $this->Flash->success(__('The pickup has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
+
+            //echo print_r($pickup->errors());
+            //echo "</pre>";*/
             $this->Flash->error(__('The pickup could not be saved. Please, try again.'));
         }
         $users = $this->Pickups->Users->find('list', ['limit' => 200]);
-        $clients = $this->Pickups->Clients->find('list', ['limit' => 200]);
-        $this->set(compact('pickup', 'users', 'clients'));
+        $this->set(compact('pickup', 'users', 'containers'));
         $this->set('_serialize', ['pickup']);
     }
 

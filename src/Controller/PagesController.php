@@ -30,7 +30,7 @@ class PagesController extends AppController
 {
 
     public function isAuthorized($user = null) {
-        if ($user['access_level'] >= Configure::read('AuthRoles.user')) {
+        if ($user['access_level'] >= Configure::read('AuthRoles.client')) {
             return true;
         }
         
@@ -54,7 +54,23 @@ class PagesController extends AppController
         if (!empty($path[1])) {
             $subpage = $path[1];
         }
-        $this->set(compact('page', 'subpage'));
+
+        $userId = $this->Auth->user('id');
+        $authLevel = $this->Auth->user('access_level');
+        $isAdmin = false;
+        $isClient = false;
+        $isUser = false;
+        if ($authLevel >= Configure::read('AuthRoles.client')) {
+            $isClient = true;
+        } 
+        if ($authLevel >= Configure::read('AuthRoles.user')) {
+            $isUser = true;
+        } 
+        if ($authLevel >= Configure::read('AuthRoles.admin')) {
+            $isAdmin = true;
+        }
+
+        $this->set(compact('page', 'subpage', 'isClient', 'isUser', 'isAdmin', 'userId'));
 
         try {
             $this->render(implode('/', $path));

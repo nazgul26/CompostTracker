@@ -19,6 +19,7 @@
 
 <?php if ($siteId) { ?>
     <h3><?= __('Locations') ?></h3>
+    <?php if ($site->locations) { ?>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -40,6 +41,9 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+    <?php } else { ?>
+            <div class="alert alert-warning">No Locations Setup</div>
+    <?php } ?>
     <nav class="navbar navbar-default">
         <ul class="nav navbar-nav">
             <li><?= $this->Html->link(__('New Location'), ['controller'=>'locations', 'action' => 'edit', $clientId, $siteId]) ?></li>

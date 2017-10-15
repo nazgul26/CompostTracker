@@ -17,6 +17,7 @@
 </div>
 
 <h3><?= __('Sites') ?></h3>
+<?php if ($client->sites) { ?>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -26,7 +27,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($client->sites as $site): ?>
+    <?php foreach ($client->sites as $site): ?>
         <tr>
             <td>
                 <?= $this->Html->link(__('Edit'), ['controller'=>'sites', 'action' => 'edit', $id, $site->id]) ?> | 
@@ -38,8 +39,14 @@
         <?php endforeach; ?>
     </tbody>
 </table>
+<?php } else { ?>
+    <div class="alert alert-warning">No Sites Setup</div>
+<?php } ?>
+
+<?php if ($id) { ?>
 <nav class="navbar navbar-default">
     <ul class="nav navbar-nav">
         <li><?= $this->Html->link(__('New Site'), ['controller'=>'sites', 'action' => 'edit', $id]) ?></li>
     </ul>
 </nav>
+<?php } ?>
