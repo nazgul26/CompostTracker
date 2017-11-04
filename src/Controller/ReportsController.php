@@ -10,7 +10,7 @@ use Cake\Core\Configure;
 class ReportsController extends AppController
 {
     public function isAuthorized($user = null) {
-        if ($user['access_level'] >= Configure::read('AuthRoles.user')) {
+        if ($user['access_level'] >= Configure::read('AuthRoles.client')) {
             return true;
         }
         
@@ -20,22 +20,33 @@ class ReportsController extends AppController
 
     public function index()
     {
+        $isClient = false;
+        $authLevel = $this->Auth->user('access_level');
+        if ($authLevel == Configure::read('AuthRoles.client')) {
+            $isClient = true;
+        } 
+
         $report = new ReportsForm();
 
         $client = TableRegistry::get('Clients');
         $clients = $client->find('list', ['limit' => 200]);
-        $this->set(compact('report', 'clients'));
+        $this->set(compact('report', 'clients', 'isClient'));
         $this->set('_serialize', ['report']);
     }
 
-    public function export() {
+    public function report() {
         $pickups = TableRegistry::get('Pickups');
         $requestData = $this->request->getData();
-        $clientId = $requestData['client_id'];
+        $authLevel = $this->Auth->user('access_level');
+        if ($authLevel == Configure::read('AuthRoles.client')) {
+            $clientId = $this->Auth->user('client_id');
+        } else {
+            $clientId = $requestData['client_id'];
+        }
+
         $startDate = new Time($requestData['start_date']['year'] . '/' . $requestData['start_date']['month'] . '/' . $requestData['start_date']['day'] . " 00:00");
         $endDate = new Time($requestData['end_date']['year'] . '/' . $requestData['end_date']['month'] . '/' . $requestData['end_date']['day'] . " 24:00");
-
-		$this->response->download("report.csv");
+        $export = $requestData['export'] == 1;
 
         $conditions = [
             'Pickups.pickup_date >=' => $startDate,
@@ -56,34 +67,21 @@ class ReportsController extends AppController
                     ],
                 'order' => ['Pickups.pickup_date' => 'DESC']
             ]);
-		$this->set(compact('pickups'));
+        
+        
+        if ($export) {
+            $this->set(compact('pickups'));
+            $this->response->download("report.csv");
+            $this->render('export');
+        } else {
+            $sortedPickups = [];
+            foreach ($pickups as $pickup) {
+                $sortedPickups[$pickup->location->site->name][] = $pickup;
+            }    
+            $this->set(compact('sortedPickups'));
+            $this->render('graph');
+        }
+
 		return;
 	}
-
-    public function summary() {
-        $pickups = TableRegistry::get('Pickups');
-        $requestData = $this->request->getData();
-        $clientId = $requestData['client_id'];
-        $startDate = new Time($requestData['start_date']['year'] . '/' . $requestData['start_date']['month'] . '/' . $requestData['start_date']['day'] . " 00:00");
-        $endDate = new Time($requestData['end_date']['year'] . '/' . $requestData['end_date']['month'] . '/' . $requestData['end_date']['day'] . " 24:00");
-        
-		$pickups = $pickups->find('all',
-            [
-                'conditions' => [
-                    'Clients.id' => $clientId, 
-                    'Pickups.pickup_date >=' => $startDate,
-                    'Pickups.pickup_date <=' => $endDate
-                    ],
-                'contain' => [
-                    'Users', 
-                    'Locations' => 
-                        ['Sites' => ['Clients']],
-                    'Containers'
-                    ],
-                'order' => ['Pickups.pickup_date' => 'DESC']
-            ]);
-		$this->set(compact('pickups'));
-		return;
-    }
-
 }

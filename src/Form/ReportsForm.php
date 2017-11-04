@@ -20,7 +20,8 @@ class ReportsForm extends Form
     {
         return $schema->addField('client_id', 'Client')
             ->addField('start_date', ['type' => 'date'])
-            ->addField('end_date', ['type' => 'date']);
+            ->addField('end_date', ['type' => 'date'])
+            ->addField('export', ['type' => 'text']);
     }
 
     /**

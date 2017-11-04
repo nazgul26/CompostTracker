@@ -7,7 +7,7 @@
 <script>
 $( function() {
     
-    $('.add-quantity .form-control').val(0);
+    $('.add-quantity .form-control').val(1);
 
     $('.add-spinner').click(function() {
         var $input = $(this).parent().parent().find('.form-control');
@@ -53,7 +53,7 @@ $( function() {
                     <?= $this->Form->control("containers." . $i . ".id", ['type' => 'hidden', 'value' => ($i+1)])?>
                     <div class="form-group">
                         <label>Container</label>
-                        <div class="containerName"><?=$item['name']?></div>
+                        <div class="containerName"><?=$item['name']?> (<?=$item['gallons']?> Gal)</div>
                         <?= $this->Form->control("containers." . $i . "._joinData.container_id", ['type' => 'hidden', 'value' => $item['id']])?>
                     </div>
                 </div>

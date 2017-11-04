@@ -10,7 +10,7 @@ foreach ($pickups as $pickup):
     echo $pickup->pounds . ", ";
     echo ($pickup->pounds * .72) . ", ";
     foreach ($pickup->containers as $container) {
-        echo $container->name . " - ";
+        echo $container["_joinData"]->quantity . " " . $container->name . " - ";
     }
     echo $pickup->notes . ", ";
     echo "\n";

@@ -12,8 +12,13 @@ use Cake\Core\Configure;
 class UsersController extends AppController
 {
     public function isAuthorized($user = null) {
-        if ($user['access_level'] >= Configure::read('AuthRoles.user')) {
-            return true;
+
+        // The owner of an user can edit and delete it
+        if (in_array($this->request->getParam('action'), ['edit', 'delete'])) {
+            $userId = (int)$this->request->getParam('pass.0');
+            if ($userId == $user['id']) {
+                return true;
+            }
         }
         
         return parent::isAuthorized($user);
@@ -22,12 +27,6 @@ class UsersController extends AppController
     public function index()
     {
         $this->set('users', $this->Users->find('all'));
-    }
-
-    public function view($id)
-    {
-        $user = $this->Users->get($id);
-        $this->set(compact('user'));
     }
 
     public function edit($userId = null)

@@ -2,7 +2,11 @@
 use Cake\Core\Configure;
 ?>
 <ol class="breadcrumb">
-  <li><?= $this->Html->link(__('Users'), ['contoller'=>'users', 'action' => 'index'])?></li>
+  <?php if ($isAdmin) { ?>
+  <li><?= $this->Html->link(__('Users'), ['controller'=>'users', 'action' => 'index'])?></li>
+  <?php } else { ?>
+    <li><?= $this->Html->link(__('Home'), ['controller'=>'pages', 'action' => 'home'])?></li>
+  <?php } ?>
   <li class="active"><?= ($userId) ? "Edit User" : "Add User"?></li>
 </ol>
 <div class="users form">
