@@ -12,7 +12,7 @@ foreach ($pickups as $pickup):
     foreach ($pickup->containers as $container) {
         echo $container["_joinData"]->quantity . " " . $container->name . " - ";
     }
-    echo $pickup->notes . ", ";
+    echo "," . $pickup->note . ", ";
     echo "\n";
 endforeach; ?>
 

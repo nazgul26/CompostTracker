@@ -29,7 +29,7 @@ class ReportsController extends AppController
         $report = new ReportsForm();
 
         $client = TableRegistry::get('Clients');
-        $clients = $client->find('list', ['limit' => 200]);
+        $clients = $client->find('list', ['limit' => 200, 'order' => 'Clients.name']);
         $this->set(compact('report', 'clients', 'isClient'));
         $this->set('_serialize', ['report']);
     }
