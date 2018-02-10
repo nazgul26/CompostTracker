@@ -36,6 +36,8 @@ class ReportsController extends AppController
 
     public function report() {
         $pickups = TableRegistry::get('Pickups');
+        $containers = TableRegistry::get('Containers');
+
         $requestData = $this->request->getData();
         $authLevel = $this->Auth->user('access_level');
         if ($authLevel == Configure::read('AuthRoles.client')) {
@@ -67,10 +69,11 @@ class ReportsController extends AppController
                     ],
                 'order' => ['Pickups.pickup_date' => 'DESC']
             ]);
-        
+            
         
         if ($export) {
-            $this->set(compact('pickups'));
+            $containers = $containers->find('list', ['limit' => 200])->toArray();
+            $this->set(compact('pickups', 'containers'));
             $this->response->download("report.csv");
             $this->render('export');
         } else {

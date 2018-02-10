@@ -31,6 +31,12 @@ class PickupsController extends AppController
         $this->set('_serialize', ['pickups']);
     }
 
+    public function pounds() {
+        $query = $this->Pickups->find();
+        $total = $query->select(['total' => $query->func()->sum('pounds')]);
+        $this->set('total', $total->first()->total * .72);
+    }
+
     public function view($id = null)
     {
         $pickup = $this->Pickups->get($id, [
