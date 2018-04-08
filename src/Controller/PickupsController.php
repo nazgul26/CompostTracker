@@ -33,8 +33,10 @@ class PickupsController extends AppController
 
     public function pounds() {
         $query = $this->Pickups->find();
-        $total = $query->select(['total' => $query->func()->sum('pounds')]);
-        $this->set('total', $total->first()->total * .72);
+        $totalQuery = $query->select(['total' => $query->func()->sum('pounds')]);
+        // Pounds CO2 = Pounds collected in this App + Total Collected Prior * .72
+        $total = round(($totalQuery->first()->total + 2500000) * .72);
+        $this->set('total', $total);
     }
 
     public function view($id = null)

@@ -4,7 +4,7 @@
     <?php if ($isAdmin) : ?>
     <li><?= $this->Html->link('Clients', ['controller' => 'Clients', 'action' => 'index'])?></li>
     <li><?= $this->Html->link('Users', ['controller' => 'Users', 'action' => 'index'])?></li>
-    
+    <li><?= $this->Html->link('Containers', ['controller' => 'Containers', 'action' => 'index'])?></li>
     <?php endif?>
     <?php if ($isUser) : ?>
     <li><?= $this->Html->link('Pickups', ['controller' => 'Pickups', 'action' => 'index'])?></li>
