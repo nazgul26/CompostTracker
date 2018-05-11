@@ -1,3 +1,9 @@
+<script>
+$( function() {
+    $('#navAdmin').addClass('active');
+});
+</script>
+
 <ol class="breadcrumb">
   <li><?= $this->Html->link(__('Clients'), ['controller'=>'clients', 'action' => 'index'])?></li>
   <li><?= $this->Html->link(__('Edit Client'), ['controller'=>'clients', 'action' => 'edit', $clientId])?></li>
@@ -24,8 +30,7 @@
         <thead>
             <tr>
                 <th><?= __('Actions') ?></th>
-                <th><?= $this->Paginator->sort('name') ?></th>
-                
+                <th><?= $this->Paginator->sort('name') ?></th>              
             </tr>
         </thead>
         <tbody>

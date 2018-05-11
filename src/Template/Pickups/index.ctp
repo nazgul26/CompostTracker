@@ -1,3 +1,9 @@
+<script>
+$( function() {
+    $('#navAdmin').addClass('active');
+});
+</script>
+
 <div class="pickups index large-9 medium-8 columns content">
     <h3><?= __('Pickups') ?></h3>
     <table class="table table-striped">
@@ -18,7 +24,7 @@
             <tr>
                <td>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $pickup->id]) ?> | 
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $pickup->id], ['confirm' => __('Are you sure you want to delete # {0}?', $pickup->id)]) ?>    
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $pickup->id], ['confirm' => __('Are you sure you want to delete this pickup?', $pickup->id)]) ?>    
                 </td>
                 <td><?= h($pickup->location->site->client->name) ?></td>
                 <td><?= h($pickup->location->site->name) ?></td>

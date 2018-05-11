@@ -41,6 +41,7 @@ class AppController extends Controller
     public function initialize()
     {
         parent::initialize();
+        \Stripe\Stripe::setApiKey("sk_test_IzVR5FCLlNolR3JNqC4U2ljq");
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
@@ -78,7 +79,7 @@ class AppController extends Controller
     public function beforeFilter(Event $event)
     {
         $this->Auth->deny();
-        $this->Auth->allow(['login', 'logout', 'reset', 'resetLink', 'pounds']);
+        $this->Auth->allow(['login', 'logout', 'reset', 'resetLink', 'pounds', 'signup']);
     }
 
     /**
@@ -89,10 +90,12 @@ class AppController extends Controller
      */
     public function beforeRender(Event $event)
     {
-        if (!array_key_exists('_serialize', $this->viewVars) &&
-            in_array($this->response->type(), ['application/json', 'application/xml'])
-        ) {
+        if (!array_key_exists('_serialize', $this->viewVars) && in_array($this->response->type(), ['application/json', 'application/xml'])        ) {
             $this->set('_serialize', true);
         }
+        $this->set('userId', $this->Auth->user('id'));
+        $this->set('isResidential', $this->Auth->user('access_level') == Configure::read('AuthRoles.residential'));
+        $this->set('isEmployee', $this->Auth->user('access_level') >= Configure::read('AuthRoles.user'));
+        $this->set('isAdmin', $this->Auth->user('access_level') >= Configure::read('AuthRoles.admin'));
     }
 }

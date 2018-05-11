@@ -1,3 +1,9 @@
+<script>
+$( function() {
+    $('#navAdmin').addClass('active');
+});
+</script>
+
 <nav class="navbar navbar-default">
     <ul class="nav navbar-nav">
         <li><?= $this->Html->link(__('New Client'), ['action' => 'edit']) ?></li>

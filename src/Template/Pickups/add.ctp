@@ -6,7 +6,7 @@
 
 <script>
 $( function() {
-    
+    $('#navAddCommercialPickup').addClass('active');
     $('.add-quantity .form-control').val(1);
 
     $('.add-spinner').click(function() {
@@ -30,7 +30,7 @@ $( function() {
     });
 });
 </script>
-<h3>Organic Waste Tracking</h3>
+<h3>Commercial Waste Tracking</h3>
 <?= $this->Form->create($pickup, ['id' => 'addForm'])?>
 <?= $this->Form->control('client_id', ['empty' => true, 'default' => $clientId])?>
 <?php if ($clientId) { ?>

@@ -5,6 +5,9 @@ use App\Controller\AppController;
 use Cake\I18n\Time;
 use Cake\Core\Configure;
 
+/*
+    Commercial Account Pickups
+*/
 class PickupsController extends AppController
 {
     public function isAuthorized($user = null) {

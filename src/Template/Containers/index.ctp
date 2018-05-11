@@ -1,10 +1,16 @@
+<script>
+$( function() {
+    $('#navAdmin').addClass('active');
+});
+</script>
+
 <nav class="navbar navbar-default">
     <ul class="nav navbar-nav">
         <li><?= $this->Html->link(__('New Container'), ['action' => 'edit']) ?></li>
     </ul>
 </nav>
 <div class="clients index large-9 medium-8 columns content">
-    <h3><?= __('Clients') ?></h3>
+    <h3><?= __('Containers') ?></h3>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -18,7 +24,7 @@
             <tr>
                <td>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $container->id]) ?> | 
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $container->id], ['confirm' => __('Are you sure you want to cotntainer {0}?', $container->name)]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $container->id], ['confirm' => __('Are you sure you want to container {0}?', $container->name)]) ?>
                 </td>
                 <td><?= h($container->name) ?></td>
                 <td><?= h($container->gallons) ?></td>

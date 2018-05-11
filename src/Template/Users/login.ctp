@@ -1,3 +1,6 @@
+<div class="logo">
+    <?= $this->Html->image("logo_circle.png", ["alt" => "Rust Belt Riders", "class" => "center-block"])?>
+</div>
 <div class="users form">
 <?= $this->Form->create() ?>
     <fieldset>

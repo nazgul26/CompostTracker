@@ -1,3 +1,9 @@
+<script>
+$( function() {
+    $('#navAdmin').addClass('active');
+});
+</script>
+
 <ol class="breadcrumb">
   <li><?= $this->Html->link(__('Containers'), ['action' => 'index'])?></li>
   <li class="active"><?= ($id) ? "Edit" : "Add"?></li>

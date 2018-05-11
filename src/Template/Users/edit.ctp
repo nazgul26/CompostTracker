@@ -1,6 +1,11 @@
-<?php
-use Cake\Core\Configure;
-?>
+
+<?php use Cake\Core\Configure; ?>
+<script>
+$( function() {
+    $('#navAccount').addClass('active');
+});
+</script>
+
 <ol class="breadcrumb">
   <?php if ($isAdmin) { ?>
   <li><?= $this->Html->link(__('Users'), ['controller'=>'users', 'action' => 'index'])?></li>

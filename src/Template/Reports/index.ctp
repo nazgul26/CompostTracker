@@ -1,3 +1,9 @@
+<script>
+$( function() {
+    $('#navReports').addClass('active');
+});
+</script>
+
 <div class="reports form large-9 medium-8 columns content">
     <?= $this->Form->create($report, ['url' => ['action' => 'report']]) ?>
     <fieldset>

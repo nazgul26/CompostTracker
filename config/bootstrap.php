@@ -225,6 +225,7 @@ if (Configure::read('debug')) {
 Plugin::load('BootstrapUI');
 
 Configure::write('AuthRoles', array(
+    'residential' => 20, // Residential Customer
     'client' => 30, // External access
     'user' => 60, // add pickups only
     'admin'=> 90 // Site Admin Level Access
@@ -233,6 +234,7 @@ Configure::write('AuthRoles', array(
 // For UI / Edit
 Configure::write('AuthRolesList', array(
     0 => '',
+    20 => 'Residential', // Residential Customer
     30 => 'Client', // External access
     60 => 'User', // add pickups only
     90 => 'Administrator' // Site Admin Level Access

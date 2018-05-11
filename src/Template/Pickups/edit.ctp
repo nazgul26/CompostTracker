@@ -1,16 +1,6 @@
 <script>
 $( function() {
-    /*$('.add-spinner').click(function() {
-        var $input = $(this).parent().parent().find('.form-control');
-        $input.val(parseInt($input.val(), 10) + 1);
-    });
-    $('.subtract-spinner').click(function() {
-        var $input = $(this).parent().parent().find('.form-control');
-        var newValue = parseInt($input.val(), 10) - 1;
-        if (newValue) {
-            $input.val(newValue);
-        }
-    });*/
+    $('#navAdmin').addClass('active');
 });
 </script>
 

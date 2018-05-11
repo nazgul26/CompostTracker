@@ -17,6 +17,11 @@ class UsersTable extends Table
             'foreignKey' => 'client_id',
             'joinType' => 'INNER'
         ]);
+
+        $this->belongsTo('Addresses', [
+            'foreignKey' => 'address_id',
+            'joinType' => 'INNER'
+        ]);
     }
 
     public function validationDefault(Validator $validator)

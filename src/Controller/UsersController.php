@@ -40,7 +40,6 @@ class UsersController extends AppController
         // Edit
         if ($userId) {
             $user = $this->Users->get($userId);
-            //$user->password = "";
         } else {  
             // Add - first load
             $user = $this->Users->newEntity();
@@ -86,6 +85,48 @@ class UsersController extends AppController
         return $this->redirect($this->Auth->logout());
     }
 
+    public function signup() { 
+
+        // Add - first load
+        $user = $this->Users->newEntity();
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $request = $this->request->getData();
+            $request['email'] = $request['username']; // Until email is removed...
+
+            if ($request['password1'] === $request['password2']) {
+                // only pass on the password when there is a value (and it matches the confirm)
+                if (!empty($request['password2'])) {  
+                    $request['password'] = $request['password2'];
+                }
+
+                $address = $this->Users->Addresses->newEntity($request['Address']);
+                if ($this->Users->Addresses->save($address)) {
+                    $request["address_id"] = $address->id;
+                    $request["access_level"] = Configure::read('AuthRoles.residential');
+                    $user = $this->Users->patchEntity($user, $request);
+
+                    // Create the Stripe user as well
+                    $customer = \Stripe\Customer::create(array(
+                        'email' => $user->email,
+                        'description' => $user->first_name . " " . $user->last_name
+                    ));
+
+                    $user->stripe_id = $customer->id;
+
+                    if ($this->Users->save($user)) {
+                        $this->Flash->success(__('Account created.  Setup Payment to complete registration.'));
+                        $this->Auth->setUser($user);
+                        return $this->redirect(['controller' => 'payments', 'action' => 'index']);
+                    }
+                }
+                $this->Flash->error(__('Unable to add the user.'));
+            } else {
+                $this->Flash->error(__('Passwords do not match.'));
+            }
+        }
+        $this->set(compact('user'));
+    }
 
     public function delete($id = null)
     {

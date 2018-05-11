@@ -45,7 +45,7 @@ class ContainersTable extends Table
         $this->belongsToMany('Pickups', [
             'foreignKey' => 'container_id',
             'targetForeignKey' => 'pickup_id',
-            'joinTable' => 'pickups_containers'
+            'through' => 'PickupsContainers'
         ]);
     }
 
