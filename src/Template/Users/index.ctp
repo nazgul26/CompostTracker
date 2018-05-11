@@ -15,6 +15,7 @@ $( function() {
         <thead>
             <tr>
                 <th><?= __('Actions') ?></th>
+                <th><?= $this->Paginator->sort('ID') ?></th>
                 <th><?= $this->Paginator->sort('login') ?></th>
                 <th><?= $this->Paginator->sort('email') ?></th>
                 <th><?= $this->Paginator->sort('access') ?></th>
@@ -27,6 +28,7 @@ $( function() {
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id])?> | 
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete {0}?', $user->username)]) ?>
                 </td>
+                <td><?= h($user->id) ?></td>
                 <td><?= h($user->username) ?></td>
                 <td><?= h($user->email) ?></td>
                 <td><?= h($user->access_level) ?></td>
