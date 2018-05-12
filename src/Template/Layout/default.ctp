@@ -53,7 +53,7 @@ $cakeDescription = 'Rust Belt Riders';
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-        <?php 
+            <?php 
             if (isset($userId)) {
                 if ($isEmployee) {
                     echo "<li id='navAddCommercialPickup'>";
@@ -68,7 +68,7 @@ $cakeDescription = 'Rust Belt Riders';
                     ['escape' => false, 'title' => 'Add Residential Collections']);
                     echo "</li>";
                 }
-            }?>
+            ?>
             <li id="navReports">
                 <?= $this->Html->link('<i class="fas fa-chart-bar fa-2x"></i>', 
                 ['controller' => 'Reports', 'action' => 'index'],
@@ -139,9 +139,11 @@ $cakeDescription = 'Rust Belt Riders';
                 ['escape' => false, 'title' => 'Sign Out']);
                 ?>
             </li>
-        </div>
+            <?php } ?>
+        </ul>
     </div>
-    </nav>
+</div>
+</nav>
 
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
