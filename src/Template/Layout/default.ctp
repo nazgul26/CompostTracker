@@ -76,13 +76,13 @@ $cakeDescription = 'Rust Belt Riders';
             </li>
 
             <?php if ($isResidential) {
-                echo "<li>";
+                echo "<li class='navHiRes'>";
                 echo $this->Html->link('<i class="fas fa-credit-card fa-2x"></i>', 
                 ['controller' => 'Payments', 'action' => 'index'],
                 ['escape' => false, 'title' => 'Payment Options']);
                 echo "</li>";
 
-                echo "<li>";
+                echo "<li class='navHiRes'>";
                 echo $this->Html->link('<i class="fas fa-shopping-cart fa-2x"></i>', 
                 ['controller' => 'Settings', 'action' => 'index'],
                 ['escape' => false, 'title' => 'Buy Additional Services/Products']);     
@@ -102,7 +102,7 @@ $cakeDescription = 'Rust Belt Riders';
             </li>
 
             <?php if ($isEmployee) { ?>
-            <li class="dropdown" id="navAdmin">
+            <li class="dropdown navHiRes" id="navAdmin">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-wrench fa-2x"></i><span class="caret"></span></a>
                 <ul class="dropdown-menu">
