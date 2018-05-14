@@ -10,7 +10,7 @@
   <script
   src="https://checkout.stripe.com/checkout.js" class="stripe-button"
   data-key="pk_test_AXvmyLceGQBuydKI3PdZz22i"
-  data-image="/rbr_app/img/logo_circle.png"
+  data-image="/app/img/logo_circle.png"
   data-name="Rust Belt Riders"
   data-panel-label="Complete Sign-Up"
   data-label="Add/Update Payment"
