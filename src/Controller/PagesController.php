@@ -19,66 +19,15 @@ use Cake\Network\Exception\ForbiddenException;
 use Cake\Network\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
 
-/**
- * Static content controller
- *
- * This controller will render views from Template/Pages/
- *
- * @link http://book.cakephp.org/3.0/en/controllers/pages-controller.html
- */
 class PagesController extends AppController
-{
-
-    public function isAuthorized($user = null) {
-        if ($user['access_level'] >= Configure::read('AuthRoles.client')) {
-            return true;
-        }
-        
-        return parent::isAuthorized($user);
+{ 
+    public function isAuthorized($user)
+    {
+        return true;
     }
     
-    public function display(...$path)
+    public function home()
     {
-        $count = count($path);
-        if (!$count) {
-            return $this->redirect('/');
-        }
-        if (in_array('..', $path, true) || in_array('.', $path, true)) {
-            throw new ForbiddenException();
-        }
-        $page = $subpage = null;
 
-        if (!empty($path[0])) {
-            $page = $path[0];
-        }
-        if (!empty($path[1])) {
-            $subpage = $path[1];
-        }
-
-        $userId = $this->Auth->user('id');
-        $authLevel = $this->Auth->user('access_level');
-        $isAdmin = false;
-        $isClient = false;
-        $isUser = false;
-        if ($authLevel >= Configure::read('AuthRoles.client')) {
-            $isClient = true;
-        } 
-        if ($authLevel >= Configure::read('AuthRoles.user')) {
-            $isUser = true;
-        } 
-        if ($authLevel >= Configure::read('AuthRoles.admin')) {
-            $isAdmin = true;
-        }
-
-        $this->set(compact('page', 'subpage', 'isClient', 'isUser', 'isAdmin', 'userId'));
-
-        try {
-            $this->render(implode('/', $path));
-        } catch (MissingTemplateException $e) {
-            if (Configure::read('debug')) {
-                throw $e;
-            }
-            throw new NotFoundException();
-        }
     }
 }

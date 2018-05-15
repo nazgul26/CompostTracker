@@ -45,8 +45,7 @@ Router::defaultRouteClass(DashedRoute::class);
 
 Router::scope('/', function (RouteBuilder $routes) {
 
-    $routes->connect('/', ['controller' => 'Pickups', 'action' => 'add']);
-    $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
+    $routes->connect('/', ['controller' => 'Pages', 'action' => 'home']);
     $routes->fallbacks(DashedRoute::class);
 
 });

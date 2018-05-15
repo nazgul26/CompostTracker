@@ -49,12 +49,11 @@ class AppController extends Controller
             'authorize' => ['Controller'],
             'loginRedirect' => [
                 'controller' => 'Pages',
-                'action' => 'display'
+                'action' => 'home'
             ],
             'logoutRedirect' => [
-                'controller' => 'Pages',
-                'action' => 'display',
-                'home'
+                'controller' => 'Users',
+                'action' => 'login'
             ]
         ]);
         /*
@@ -96,6 +95,7 @@ class AppController extends Controller
         $this->set('userId', $this->Auth->user('id'));
         $this->set('isResidential', $this->Auth->user('access_level') == Configure::read('AuthRoles.residential'));
         $this->set('isEmployee', $this->Auth->user('access_level') >= Configure::read('AuthRoles.user'));
+        $this->set('isClient', $this->Auth->user('access_level') >= Configure::read('AuthRoles.client'));
         $this->set('isAdmin', $this->Auth->user('access_level') >= Configure::read('AuthRoles.admin'));
     }
 }

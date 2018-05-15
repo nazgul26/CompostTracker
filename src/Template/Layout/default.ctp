@@ -45,7 +45,7 @@ $cakeDescription = 'Rust Belt Riders';
     <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/pages/home">
         <?= $this->Html->image("logo.png", ["alt" => "RBR", "class" => "brandImage"])?>
         </a>
         </div>
