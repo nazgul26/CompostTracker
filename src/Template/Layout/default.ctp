@@ -69,30 +69,32 @@ $cakeDescription = 'Rust Belt Riders';
                     echo "</li>";
                 }
             ?>
+            <?php if (!$isResidential) { ?>
             <li id="navReports">
                 <?= $this->Html->link('<i class="fas fa-chart-bar fa-2x"></i>', 
                 ['controller' => 'Reports', 'action' => 'index'],
                 ['escape' => false, 'title' => 'Reports']); ?>
             </li>
+            <?php } ?>
 
             <?php if ($isResidential) {
-                echo "<li class='navHiRes'>";
-                echo $this->Html->link('<i class="fas fa-credit-card fa-2x"></i>', 
-                ['controller' => 'Payments', 'action' => 'index'],
-                ['escape' => false, 'title' => 'Payment Options']);
-                echo "</li>";
+                //echo "<li class='navHiRes'>";
+                //echo $this->Html->link('<i class="fas fa-credit-card fa-2x"></i>', 
+                //['controller' => 'Payments', 'action' => 'index'],
+                //['escape' => false, 'title' => 'Payment Options']);
+                //echo "</li>";
 
-                echo "<li class='navHiRes'>";
-                echo $this->Html->link('<i class="fas fa-shopping-cart fa-2x"></i>', 
-                ['controller' => 'Settings', 'action' => 'index'],
-                ['escape' => false, 'title' => 'Buy Additional Services/Products']);     
-                echo "</li>";
+                //echo "<li class='navHiRes'>";
+                //echo $this->Html->link('<i class="fas fa-shopping-cart fa-2x"></i>', 
+                //['controller' => 'Settings', 'action' => 'index'],
+                //['escape' => false, 'title' => 'Buy Additional Services/Products']);     
+                //echo "</li>";
 
-                echo "<li>";
-                echo $this->Html->link('<i class="fas fa-cogs fa-2x"></i>', 
-                ['controller' => 'Settings', 'action' => 'index'],
-                ['escape' => false, 'title' => 'Service Options']);
-                echo "</li>";
+                //echo "<li>";
+                //echo $this->Html->link('<i class="fas fa-cogs fa-2x"></i>', 
+                //['controller' => 'Settings', 'action' => 'index'],
+                //['escape' => false, 'title' => 'Service Options']);
+                //echo "</li>";
             } ?>
 
             <li id="navAccount">
