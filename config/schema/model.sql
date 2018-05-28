@@ -96,6 +96,14 @@ CREATE TABLE collections (
 	PRIMARY KEY (id)
 );
 
+CREATE TABLE zones (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255) NOT NULL,
+	`coordinates` TEXT NOT NULL,
+	`active` BOOLEAN NOT NULL,
+	PRIMARY KEY (id)
+);
+
 
 INSERT INTO containers (name, gallons) VALUES ('Toter', 5);
 INSERT INTO containers (name, gallons) VALUES ('17 Gal', 17);
@@ -130,3 +138,4 @@ ALTER TABLE users ADD `last_name` VARCHAR(64) NOT NULL DEFAULT '';
 ALTER TABLE users ADD `phone` VARCHAR(64) NULL;
 ALTER TABLE users ADD `stripe_id` VARCHAR(255) NULL;
 -- create table collections
+-- create table zones

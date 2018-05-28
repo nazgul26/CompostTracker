@@ -131,6 +131,11 @@ $cakeDescription = 'Rust Belt Riders';
                         <?= $this->Html->link('Containers', 
                         ['controller' => 'Containers', 'action' => 'index']);?>
                     </li>
+
+                    <li>
+                        <?= $this->Html->link('Service Zones', 
+                        ['controller' => 'Zones', 'action' => 'index']);?>
+                    </li>
                     <?php } ?>
                 </ul>
             </li>

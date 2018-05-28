@@ -8,6 +8,7 @@ use Cake\Utility\Security;
 use Cake\Utility\Text;
 use Cake\Routing\Router;
 use Cake\Core\Configure;
+use Cake\ORM\TableRegistry;
 
 class UsersController extends AppController
 {
@@ -87,6 +88,36 @@ class UsersController extends AppController
 
     public function signup() { 
 
+        $zones = TableRegistry::get('Zones');
+        $activeZones = $zones->find('all', 
+        [
+            'conditions' => ['active' => 1], 
+            'order' => 'Zones.name'
+        ]);
+
+        $coordinateData = "";
+        foreach ($activeZones as $zone) {
+            echo "Zone: ". $zone->name . "<br/>";
+            //echo "Coords: " . $zone->coordinates . "<br/>";
+            $coordinates = explode("\n", $zone->coordinates);
+            /*echo "<pre>";
+            print_r($coordinates);
+            echo "</pre>";*/
+            $coordinateData .= "[";
+            foreach ($coordinates as $cords) {
+                $longLat = explode(",", $cords);
+                $coordinateData .=  "{ lng:" . $longLat[0] . ", lat:" . $longLat[1] . " }, \n";
+            }
+            $coordinateData .= "],";
+            /*        var serviceAreaCords = [
+             { lng: -81.58721923828125, lat:41.46446972255933 },
+             { lng: -81.49160385131836, lat:41.46446972255933 },
+             { lng: -81.49160385131836, lat:41.52824242017159 },
+             { lng: -81.58721923828125, lat:41.52824242017159 },
+             { lng: -81.58721923828125, lat:41.46446972255933 }
+            ];*/
+        }
+        
         // Add - first load
         $user = $this->Users->newEntity();
 
@@ -125,7 +156,7 @@ class UsersController extends AppController
                 $this->Flash->error(__('Passwords do not match.'));
             }
         }
-        $this->set(compact('user'));
+        $this->set(compact('user', 'coordinateData'));
     }
 
     public function delete($id = null)

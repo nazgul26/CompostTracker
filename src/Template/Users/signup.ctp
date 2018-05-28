@@ -1,6 +1,7 @@
 <script type="text/javascript">
 
-    var placeSearch, autocomplete, serviceArea, map;
+    var placeSearch, autocomplete, map;
+    var serviceArea = []
 
     var componentForm = {
         street_number: ['short_name', 'AddressStreet1'],
@@ -26,43 +27,28 @@
     function initMap() {
 
         var serviceAreaCords = [
-             { lng: 
-              -81.58721923828125,
-              lat:41.46446972255933
-            },
-            { lng: 
-              -81.49160385131836,
-              lat:41.46446972255933
-            },
-            { lng: 
-              -81.49160385131836,
-              lat:41.52824242017159
-            },
-            { lng: 
-              -81.58721923828125,
-              lat:41.52824242017159
-            },
-            { lng: 
-              -81.58721923828125,
-              lat:41.46446972255933
-            }];
+            <?= $coordinateData?>
+        ];
 
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lng: -81.56, lat: 41.50},
-          zoom: 10,
+          zoom: 11,
         });
 
-        // Construct the polygon.
-        serviceArea = new google.maps.Polygon({
-          paths: serviceAreaCords,
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.35
-        });
-        serviceArea.setMap(map);
-      }
+        // Construct the polygons.
+        for (i = 0; i < serviceAreaCords.length; i++) {
+            console.log("Area" + i);
+            serviceArea[i] = new google.maps.Polygon({
+                paths: serviceAreaCords[i],
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.35
+            });
+            serviceArea[i].setMap(map);
+        }
+    }
 
     function fillInAddress() {
         var place = autocomplete.getPlace();
@@ -83,12 +69,16 @@
                 }
             }
         }
+        
+        var inArea = false;
+        for (var i=0; i < serviceArea.length && !inArea; i++) {
+            inArea = google.maps.geometry.poly.containsLocation(place.geometry.location, serviceArea[i]);
+        }
 
-        if (google.maps.geometry.poly.containsLocation(place.geometry.location, serviceArea)) {
+        if (inArea) {
             $("#addressOK").show();
             $("#formInputs").show();
             $("#addressFail").hide();
-
         } else {
             $("#addressOK").hide();
             $("#formInputs").hide();
