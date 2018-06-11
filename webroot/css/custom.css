@@ -19,6 +19,9 @@ body {
     margin-right: 30px;
 }
 
+.shim {
+    height: 8em;
+}
 
 @media only screen and (max-width: 600px) {
 

@@ -160,6 +160,7 @@ $cakeDescription = 'Rust Belt Riders';
             </div>
         </div>
     </div>
+    <div class="shim"></div>
     <div class="footer social navbar-fixed-bottom">
         <a href="https://facebook.com/rustbeltridersCLE" target="_blank"><i class="fab fa-facebook-square fa-2x"></i></a>
         <a href="https://twitter.com/@rustbeltriders" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a>
