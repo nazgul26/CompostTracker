@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Core\Configure;
 use Cake\Event\Event;
+use Cake\Mailer\Email;
 
 class PaymentsController extends AppController
 {
@@ -22,9 +23,23 @@ class PaymentsController extends AppController
         
         return parent::isAuthorized($user);
     }
+
+    public function index() {
+      $stripeId =  $this->Auth->user('stripe_id');
+      $customer = \Stripe\Customer::retrieve($stripeId);
+      $cards = $customer->sources->all(array(
+        'limit'=>5,
+        'object' => 'card'
+      ));
+      $subscriptions = $customer->subscriptions->all();
+      //var_dump($card_on_file->data[0]->id);
+      echo "<pre>";
+      print_r($cards);
+      print_r($subscriptions);
+      echo "</pre>";
+    }
     
-    public function index()
-    {
+    public function subscribe() {
       $email = $this->Auth->user('email');
       $this->set('email', $email);     
     }
@@ -48,6 +63,16 @@ class PaymentsController extends AppController
             'trial_period_days' => $daysTilNextMonth,
           ]);
           
+          $email = new Email('default');
+          $email->from(array('app@rustbeltriders.com' => 'Rust Belt Riders'))
+              ->template('new', 'default')
+              ->emailFormat('both')
+              ->viewVars(array('email' => $this->Auth->user('email'), 'phone' => $this->Auth->user('phone')))
+              ->to('toddrogers3286@gmail.com')
+              ->subject('[Test] New Residential Customer - ' . $this->Auth->user('first_name') . ' ' . $this->Auth->user('last_name'))
+              ->replyTo('app@rustbeltriders.com')
+              ->send();
+
           $this->Flash->success(__('You are successfully Registered.'));
           return $this->redirect(['controller' => 'payments', 'action' => 'welcome']);
 

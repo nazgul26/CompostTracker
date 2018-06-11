@@ -136,7 +136,7 @@ class UsersController extends AppController
                     if ($this->Users->save($user)) {
                         $this->Flash->success(__('Account created.  Setup Payment to complete registration.'));
                         $this->Auth->setUser($user);
-                        return $this->redirect(['controller' => 'payments', 'action' => 'index']);
+                        return $this->redirect(['controller' => 'payments', 'action' => 'subscribe']);
                     }
                 }
                 $this->Flash->error(__('Unable to add the user.'));
