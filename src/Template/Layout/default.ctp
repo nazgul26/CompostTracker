@@ -68,7 +68,7 @@ $cakeDescription = 'Rust Belt Riders';
                 }
             ?>
 
-            <li id="navHome">
+            <li id="navHome" class='navHiRes'>
                 <?= $this->Html->link('<i class="fas fa-home fa-2x"></i>', 
                 ['controller' => 'Home', 'action' => 'index'],
                 ['escape' => false, 'title' => 'Home']); ?>
