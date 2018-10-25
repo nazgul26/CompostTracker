@@ -6,7 +6,7 @@
 
 <h2>Payment Information</h2>
 <br/><br/>
-<form action="payments/update" method="POST">
+<form action="update" method="POST">
   <script
   src="https://checkout.stripe.com/checkout.js" class="stripe-button"
   data-key="pk_test_AXvmyLceGQBuydKI3PdZz22i"

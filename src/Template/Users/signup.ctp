@@ -1,7 +1,11 @@
+<?php
+    $this->Form->unlockField("zone_id");
+?>
 <script type="text/javascript">
 
     var placeSearch, autocomplete, map;
     var serviceArea = []
+    var serviceAreaCords = [];
 
     var componentForm = {
         street_number: ['short_name', 'AddressStreet1'],
@@ -26,7 +30,7 @@
 
     function initMap() {
 
-        var serviceAreaCords = [
+        serviceAreaCords = [
             <?= $coordinateData?>
         ];
 
@@ -39,7 +43,7 @@
         for (i = 0; i < serviceAreaCords.length; i++) {
             console.log("Area" + i);
             serviceArea[i] = new google.maps.Polygon({
-                paths: serviceAreaCords[i],
+                paths: serviceAreaCords[i].cords,
                 strokeColor: '#FF0000',
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
@@ -71,11 +75,14 @@
         }
         
         var inArea = false;
+        var zoneId = 0;
         for (var i=0; i < serviceArea.length && !inArea; i++) {
             inArea = google.maps.geometry.poly.containsLocation(place.geometry.location, serviceArea[i]);
+            zoneId = serviceAreaCords[i].id;
         }
 
         if (inArea) {
+            $("#zone-id").val(zoneId);
             $("#addressOK").show();
             $("#formInputs").show();
             $("#addressFail").hide();
@@ -101,12 +108,25 @@
 </div>
 
 
-<h2 class="text-center">Residential Curbside Composting Signup</h2>
-Our collection service takes all your food scraps and makes them into compost.
+<h2 class="text-center">Residential Curbside Composting</h2>
+<p>
+Sign up today to join the movement in the fight against food waste by becoming a subscriber to Northeast Ohio's first and only curbside composting services. 
+</p>
+<b>How does it work? </b>
+    <ol>
+        <li>Sign up by filling out the information below!</li>
+        <li>Receive a food scrap bin</li>
+        <li>Collect your household food scraps</li>
+        <li>Have your bin picked up once a week</li>
+        <li>Stay connected to a community of people committed to feeding people, not landfills!</li>
+    </ol>
 <hr/>
 
+<fieldset>
+<legend>Service Area</legend>
 <div id="map"></div>
-
+</fieldset>
+<br/>
 <div class="users form">
 <?= $this->Form->create('User') ?>
     <div class="form-group text">
@@ -135,6 +155,7 @@ Our collection service takes all your food scraps and makes them into compost.
     <?= $this->Form->control('phone', ['required'=>'required', 'type'=>'tel', 'placeholder'=>'(555) 555-5555']) ?>
     <?= $this->Form->control('password1', ['label' => 'Password', 'type' => 'password', 'required'=>'required']) ?>
     <?= $this->Form->control('password2', ['label' => 'Confirm Password', 'type' => 'password','required'=>'required']) ?>
+    <?= $this->Form->control('zone_id', [ 'type' => 'hidden']) ?>
     <?= $this->Form->button(__('Sign Up')); ?>
     </div>
 <?= $this->Form->end() ?>

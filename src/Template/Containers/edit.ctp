@@ -15,6 +15,7 @@ $( function() {
         <legend><?= __('Edit Container') ?></legend>
         <?= $this->Form->control('name'); ?>
         <?= $this->Form->control('gallons'); ?>
+        <?= $this->Form->control('weight'); ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>

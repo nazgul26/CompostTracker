@@ -65,7 +65,8 @@ class ReportsController extends AppController
                     'Users', 
                     'Locations' => 
                         ['Sites' => ['Clients']],
-                    'Containers'
+                    'Containers',
+                    'Dropoffs'
                     ],
                 'order' => ['Pickups.pickup_date' => 'DESC']
             ]);
@@ -75,7 +76,7 @@ class ReportsController extends AppController
             $containers = $containers->find('list', ['limit' => 200])->toArray();
             $this->set(compact('pickups', 'containers'));
             $this->response->download("report.csv");
-            $this->render('export');
+            $this->render('commercial_export');
         } else {
             $sortedPickups = [];
             foreach ($pickups as $pickup) {
@@ -86,5 +87,28 @@ class ReportsController extends AppController
         }
 
 		return;
-	}
+    }
+    
+    public function residential() {
+        // TODO: lock down to employee only
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $collectionDay = $this->request->getData()['collection_day'];
+
+            $usersTable = TableRegistry::get('Users');
+            $users = $usersTable->find('all',
+            [
+                'conditions' => ['Zones.collection_day' => $collectionDay, 'Users.active' => 1],
+                'contain' => [
+                    'Zones',
+                    'Addresses'
+                ],
+                'order' => ['Users.last_name']
+            ]);
+            $users->execute();
+ 
+            $this->set(compact('users'));
+            $this->response->download("report.csv");
+            $this->render('residential_export');
+        }
+    }
 }

@@ -21,9 +21,7 @@ class ContainersController extends AppController
     {
         // Edit
         if ($id) {
-            $container = $this->Containers->get($id, [
-                'contain' => ['Sites']
-            ]);
+            $container = $this->Containers->get($id);
         } else {  
         // Add - first load
             $container = $this->Containers->newEntity();

@@ -37,11 +37,15 @@ class PickupsTable extends Table
         $this->belongsTo('Locations', [
             'foreignKey' => 'location_id'
         ]);
+        $this->belongsTo('Dropoffs', [
+            'foreignKey' => 'dropoff_id'
+        ]);
 
         $this->belongsToMany('Containers', [
             'through' => 'PickupsContainers',
             'saveStrategy' => 'replace'
         ]);
+
     }
 
     /**
@@ -60,6 +64,10 @@ class PickupsTable extends Table
             ->numeric('pounds')
             ->requirePresence('pounds', 'create')
             ->notEmpty('pounds');
+
+        $validator
+            ->requirePresence('dropoff_id', 'create')
+            ->notEmpty('dropoff_id');
 
         $validator
             ->dateTime('pickup_date')

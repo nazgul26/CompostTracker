@@ -1,7 +1,7 @@
 <?php
 $this->layout('ajax');
 
-echo "Client, Site, Location, Pickup Date, Pounds, Lbs. Co2 Diverted ";
+echo "Client, Site, Pickup Location, Pickup Date, Drop Off Location, Pounds, Lbs. Co2 Diverted ";
 
 foreach ($containers as $container=>$key) {
     echo "," . $key;
@@ -13,6 +13,7 @@ foreach ($pickups as $pickup):
     echo $pickup->location->site->name . ", ";
     echo $pickup->location->name . ", ";
     echo $pickup->pickup_date->i18nFormat('yyyy-MM-dd') . ", ";
+    echo (isset($pickup->dropoff->name) ?  $pickup->dropoff->name : 'N/A') . ", ";
     echo $pickup->pounds . ", ";
     echo ($pickup->pounds * .72) . ",";
     foreach ($containers as $container=>$key) {

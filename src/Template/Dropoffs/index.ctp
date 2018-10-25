@@ -6,30 +6,26 @@ $( function() {
 
 <nav class="navbar navbar-default">
     <ul class="nav navbar-nav">
-        <li><?= $this->Html->link(__('New Container'), ['action' => 'edit']) ?></li>
+        <li><?= $this->Html->link(__('New Drop Off Location'), ['action' => 'edit']) ?></li>
     </ul>
 </nav>
-<div class="clients index large-9 medium-8 columns content">
-    <h3><?= __('Containers') ?></h3>
+<div class="dropoffs index large-9 medium-8 columns content">
+    <h3><?= __('Drop Off Locations') ?></h3>
     <table class="table table-striped">
         <thead>
             <tr>
                 <th><?= __('Actions') ?></th>
                 <th><?= $this->Paginator->sort('name') ?></th>
-                <th><?= $this->Paginator->sort('gallons') ?></th>
-                <th><?= $this->Paginator->sort('zero weight') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($containers as $container): ?>
+            <?php foreach ($dropoffs as $drop): ?>
             <tr>
                <td>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $container->id]) ?> | 
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $container->id], ['confirm' => __('Are you sure you want to container {0}?', $container->name)]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $drop->id]) ?> | 
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $drop->id], ['confirm' => __('Are you sure you want to drop off {0}?', $drop->name)]) ?>
                 </td>
-                <td><?= h($container->name) ?></td>
-                <td><?= h($container->gallons) ?></td>
-                <td><?= h($container->weight) ?></td>
+                <td><?= h($drop->name) ?></td>
             </tr>
             <?php endforeach; ?>
         </tbody>

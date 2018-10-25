@@ -6,9 +6,16 @@ body {
     height: 100px;
 }
 
+/* Boostrap Helps/Mods */
+.row-spaced {
+    height: 2em;
+}
+
 /* Bootstrap Nav */
 .brandImage {
     height: 30px;
+    margin-top: 25px;
+    margin-right: 10px;
 }
 .navigationIcons {
     margin-top: -36px;

@@ -29,7 +29,8 @@ $( function() {
                 <td><?= h($pickup->location->site->client->name) ?></td>
                 <td><?= h($pickup->location->site->name) ?></td>
                 <td><?= h($pickup->location->name) ?></td>
-                <td><?= h($pickup->user->name) ?></td>
+                <td><?= isset($pickup->dropoff->name) ? h($pickup->dropoff->name) : 'N/A'?></td>
+                <td><?= h($pickup->user->username) ?></td>
                 <td><?= h($pickup->pickup_date) ?></td>
                 <td><?= h($pickup->pounds) ?></td>
                 <td><?= h($pickup->note) ?></td>

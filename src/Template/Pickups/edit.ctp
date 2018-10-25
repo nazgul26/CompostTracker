@@ -28,6 +28,12 @@ $( function() {
     <input type="text" id="location-id" class="form-control" value="<?= $pickup->location->name?>" disabled />
     <?= $this->Form->control('location_id', ['type'=>'hidden', 'value'=>$pickup->location->id])?>
 </div>
+
+<div class="form-group">
+    <label class="control-label">Location</label>
+    <input type="text" id="dropoff-id" class="form-control" value="<?= $pickup->dropoff->name?>" disabled />
+    <?= $this->Form->control('dropoff_id', ['type'=>'hidden', 'value'=>$pickup->dropoff->id])?>
+</div>
     <?php 
     echo "<hr/>";
     $i = 0;

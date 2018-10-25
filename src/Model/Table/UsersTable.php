@@ -8,7 +8,8 @@ class UsersTable extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
-
+        
+        $this->addBehavior('Timestamp');
         $this->setTable('users');
         $this->setDisplayField('email');
         $this->setPrimaryKey('id');
@@ -20,6 +21,11 @@ class UsersTable extends Table
 
         $this->belongsTo('Addresses', [
             'foreignKey' => 'address_id',
+            'joinType' => 'INNER'
+        ]);
+
+        $this->belongsTo('Zones', [
+            'foreignKey' => 'zone_id',
             'joinType' => 'INNER'
         ]);
     }

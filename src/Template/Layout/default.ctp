@@ -45,16 +45,14 @@ $cakeDescription = 'Rust Belt Riders';
     <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-        <a class="navbar-brand" href="/pages/home">
         <?= $this->Html->image("logo.png", ["alt" => "RBR", "class" => "brandImage"])?>
-        </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <?php 
-            if (isset($userId)) {
+            if (isset($userId)) : 
                 if ($isEmployee) {
                     echo "<li id='navAddCommercialPickup'>";
                     echo $this->Html->link('<i class="fas fa-dolly-flatbed fa-2x"></i>', 
@@ -69,13 +67,12 @@ $cakeDescription = 'Rust Belt Riders';
                     echo "</li>";
                 }
             ?>
-            <?php if (!$isResidential) { ?>
-            <li id="navReports">
-                <?= $this->Html->link('<i class="fas fa-chart-bar fa-2x"></i>', 
-                ['controller' => 'Reports', 'action' => 'index'],
-                ['escape' => false, 'title' => 'Reports']); ?>
+
+            <li id="navHome">
+                <?= $this->Html->link('<i class="fas fa-home fa-2x"></i>', 
+                ['controller' => 'Home', 'action' => 'index'],
+                ['escape' => false, 'title' => 'Home']); ?>
             </li>
-            <?php } ?>
 
             <?php if ($isResidential) {
                 echo "<li class='navHiRes'>";
@@ -84,8 +81,8 @@ $cakeDescription = 'Rust Belt Riders';
                 ['escape' => false, 'title' => 'Payment Options']);
                 echo "</li>";
                 ?>
-                <li class='navHiRes'>";
-                    <a href="https://www.rustbeltriders.com/shop/" title="Buy Additional Services/Products">
+                <li class='navHiRes'>
+                    <a href="https://www.rustbeltriders.com/shop/" title="Buy Additional Services/Products" target="_blank">
                         <i class="fas fa-shopping-cart fa-2x"></i>
                     </a>
                 </li>
@@ -95,7 +92,31 @@ $cakeDescription = 'Rust Belt Riders';
                 //['controller' => 'Settings', 'action' => 'index'],
                 //['escape' => false, 'title' => 'Service Options']);
                 //echo "</li>";
-            } ?>
+            } else {?>
+                <?php if ($isEmployee) { ?>
+                    <li class="dropdown navHiRes" id="navReports">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-chart-bar fa-2x"></i><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <?= $this->Html->link('Commercial Reports', 
+                            ['controller' => 'Reports', 'action' => 'index']); ?>
+                        </li>
+                        <li>
+                            <?= $this->Html->link('Residential Reports', 
+                            ['controller' => 'Reports', 'action' => 'residential']); ?>
+                        </li>
+                    </ul>
+                </li>
+                <?php } else { ?>
+                    <!-- Commercial Clients Reporting -->
+                    <li id="navReports">
+                    <?= $this->Html->link('<i class="fas fa-chart-bar fa-2x"></i>', 
+                    ['controller' => 'Reports', 'action' => 'index'],
+                    ['escape' => false, 'title' => 'Reports']); ?>
+                    </li>
+                <?php } ?>
+            <?php } ?>
 
             <li id="navAccount">
                 <?= $this->Html->link('<i class="fas fa-user fa-2x"></i>', 
@@ -131,6 +152,10 @@ $cakeDescription = 'Rust Belt Riders';
                         <?= $this->Html->link('Containers', 
                         ['controller' => 'Containers', 'action' => 'index']);?>
                     </li>
+                    <li>
+                        <?= $this->Html->link('Drop Off Locations', 
+                        ['controller' => 'Dropoffs', 'action' => 'index']);?>
+                    </li>
 
                     <li>
                         <?= $this->Html->link('Service Zones', 
@@ -146,7 +171,7 @@ $cakeDescription = 'Rust Belt Riders';
                 ['escape' => false, 'title' => 'Sign Out']);
                 ?>
             </li>
-            <?php } ?>
+                    <?php endif; ?>
         </ul>
     </div>
 </div>

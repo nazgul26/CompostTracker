@@ -29,7 +29,7 @@ window.chartColors = [
                         <?php
                             $pounds = 0;
                         foreach ($pickups as $pickup):
-                            $pounds += ($pickup->pounds * .72);
+                            $pounds = ($pickup->pounds * .72);
                             echo  "{ x: '" . $pickup->pickup_date->i18nFormat('yyyy-MM-dd') . "',  y: " . $pounds. "}, ";
                         endforeach; ?>
                     ],

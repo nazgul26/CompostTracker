@@ -98,12 +98,14 @@ class UsersController extends AppController
         $coordinateData = "";
         foreach ($activeZones as $zone) {
             $coordinates = explode("\n", $zone->coordinates);
-            $coordinateData .= "[";
+            $coordinateData .= '{ "name" : "' . $zone->name . '", ';
+            $coordinateData .= '  "id": "' . $zone->id . '", ';
+            $coordinateData .= '  "cords" : [';
             foreach ($coordinates as $cords) {
                 $longLat = explode(",", $cords);
                 $coordinateData .=  "{ lng:" . $longLat[0] . ", lat:" . $longLat[1] . " }, \n";
             }
-            $coordinateData .= "],";
+            $coordinateData .= "]},";
         }
         
         // Add - first load

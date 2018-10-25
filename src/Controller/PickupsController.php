@@ -23,6 +23,7 @@ class PickupsController extends AppController
         $this->paginate = [
             'contain' => [
                 'Users', 
+                'Dropoffs',
                 'Locations' => 
                     ['Sites' => ['Clients']]
             ],
@@ -61,6 +62,16 @@ class PickupsController extends AppController
             date_default_timezone_set('US/Eastern');
             $requestData['pickup_date'] = date("Y-m-d H:i:s");
             $requestData['user_id'] = $this->Auth->user('id');
+
+            // Auto Zero the pickup weight using the container weights
+            $zeroTotal = 0;
+            foreach ($requestData['containers'] as $container) {
+                $weight = $container['weight'];
+                $quantity = $container['_joinData']['quantity'];
+                $zeroTotal += $weight * $quantity;
+            }
+            $requestData['pounds'] = $requestData['pounds'] - $zeroTotal;
+
             $pickup = $this->Pickups->patchEntity($pickup, $requestData ,
                 ['associated' => ['Containers', 'Containers._joinData']]
             );
@@ -75,12 +86,14 @@ class PickupsController extends AppController
         $clients = $this->Pickups->Locations->Sites->Clients->find('list', ['limit' => 200, 'order' => 'Clients.name']);
         $sites = $this->Pickups->Locations->Sites->find('list', ['conditions' => ['Sites.client_id' => $clientId], 'limit' => 200, 'order' => 'Sites.name']);
         $locations = $this->Pickups->Locations->find('list')->where(['Locations.site_id' => $siteId])->limit(200);
+        $dropoffs = $this->Pickups->Dropoffs->find('list', ['order' => 'Dropoffs.name'])->limit(200);
 
         if (!isset($locationId) && $siteId && $locations->count() > 0) {
             $locationId = array_keys($locations->toArray())[0];
         }
         $containers = $this->Pickups->Locations->find('all')->where(['Locations.id' => $locationId])->contain(['Containers'])->limit(200);
-        $this->set(compact('clientId', 'siteId', 'locationId', 'pickup', 'users', 'clients', 'sites', 'locations', 'containers'));
+
+        $this->set(compact('clientId', 'siteId', 'locationId', 'pickup', 'users', 'clients', 'sites', 'locations', 'containers', 'dropoffs'));
         $this->set('_serialize', ['pickup']);
     }
 
@@ -91,7 +104,8 @@ class PickupsController extends AppController
                 'Users', 
                 'Locations' => 
                     ['Sites' => ['Clients']],
-                'Containers'
+                'Containers',
+                'Dropoffs'
             ]
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -100,8 +114,6 @@ class PickupsController extends AppController
             $pickup = $this->Pickups->patchEntity($pickup, $this->request->getData()
                 ,['associated' => ['Containers._joinData']]
             );
-            //echo "<pre>";
-            //echo print_r($pickup);
 
             if ($this->Pickups->save($pickup)) {
 
@@ -110,8 +122,6 @@ class PickupsController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
 
-            //echo print_r($pickup->errors());
-            //echo "</pre>";*/
             $this->Flash->error(__('The pickup could not be saved. Please, try again.'));
         }
         $users = $this->Pickups->Users->find('list', ['limit' => 200]);
