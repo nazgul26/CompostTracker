@@ -13,6 +13,7 @@ $( function() {
                 <th><?= $this->Paginator->sort('Client') ?></th>
                 <th><?= $this->Paginator->sort('Site') ?></th>
                 <th><?= $this->Paginator->sort('Location') ?></th>
+                <th><?= $this->Paginator->sort('Drop Off') ?></th>
                 <th><?= $this->Paginator->sort('User') ?></th>
                 <th><?= $this->Paginator->sort('Date') ?></th>
                 <th><?= $this->Paginator->sort('Pounds') ?></th>
