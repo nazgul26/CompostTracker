@@ -79,7 +79,7 @@ class PaymentsController extends AppController
           ]);
           
           // Let RBR know
-          $email = new Email('default');
+          /*$email = new Email('default');
           $email->from(array('app@rustbeltriders.com' => 'Rust Belt Riders'))
               ->template('new', 'default')
               ->emailFormat('both')
@@ -97,7 +97,7 @@ class PaymentsController extends AppController
               ->to('toddrogers3286@gmail.com')
               ->subject('[Test] Welcome From Rust Belt Riders')
               ->replyTo('support@rustbeltriders.com')
-              ->send();
+              ->send();*/
 
           $this->Flash->success(__('You are successfully Registered.  You will receive a welcome email.'));
           return $this->redirect(['controller' => 'home', 'action' => 'index']);
