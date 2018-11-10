@@ -241,13 +241,13 @@ return [
             'host' => 'localhost',
             'username' => 'root',
             'password' => '',
-            'database' => 'rbr',*/
+            'database' => 'rbr',
 
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'flags' => [],
             'cacheMetadata' => true,
-            'log' => true,
+            'log' => true,*/
 
             /**
              * Set identifier quoting to true if you are using reserved words or
