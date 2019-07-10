@@ -30,7 +30,9 @@ $( function() {
     });
 });
 </script>
-<h3>Commercial Waste Tracking</h3>
+<?= $this->Html->link('Pickup History', ['controller' => 'Pickups', 'action' => 'index']); ?>
+<h3>Commercial Tracking</h3>
+
 <?= $this->Form->create($pickup, ['id' => 'addForm'])?>
 <?= $this->Form->control('client_id', ['empty' => true, 'default' => $clientId])?>
 <?php if ($clientId) { ?>

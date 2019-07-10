@@ -8,7 +8,7 @@ $( function() {
     <?= $this->Form->create($report, ['url' => ['action' => 'report']]) ?>
     <fieldset>
         <legend>Reporting</legend>
-        <?php if (!$isClient) { ?>
+        <?php if ($allowPickClient) { ?>
         <?= $this->Form->control('client_id', ['empty' => '(All)']); ?>
         <?php } ?>
         <?= $this->Form->control('start_date'); ?>

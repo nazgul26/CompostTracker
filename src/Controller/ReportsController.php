@@ -20,17 +20,17 @@ class ReportsController extends AppController
 
     public function index()
     {
-        $isClient = false;
+        $allowPickClient = true;
         $authLevel = $this->Auth->user('access_level');
         if ($authLevel == Configure::read('AuthRoles.client')) {
-            $isClient = true;
-        } 
+            $allowPickClient = false;
+        }
 
         $report = new ReportsForm();
 
         $client = TableRegistry::get('Clients');
         $clients = $client->find('list', ['limit' => 200, 'order' => 'Clients.name']);
-        $this->set(compact('report', 'clients', 'isClient'));
+        $this->set(compact('report', 'clients', 'allowPickClient'));
         $this->set('_serialize', ['report']);
     }
 

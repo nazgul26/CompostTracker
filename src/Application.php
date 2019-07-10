@@ -28,6 +28,16 @@ use Cake\Routing\Middleware\RoutingMiddleware;
  */
 class Application extends BaseApplication
 {
+    public function bootstrap() {
+        parent::bootstrap();
+
+        if (Configure::read('debug')) {
+            $this->addPlugin('DebugKit', ['bootstrap' => true]);
+        }
+        
+        $this->addPlugin('BootstrapUI');
+    }
+
     /**
      * Setup the middleware your application will use.
      *

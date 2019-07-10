@@ -44,8 +44,8 @@ $cakeDescription = 'Rust Belt Riders';
 <body>
     <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <div class="navbar-header">
-        <?= $this->Html->image("logo.png", ["alt" => "RBR", "class" => "brandImage"])?>
+        <div class="navbar-header navHiRes">
+        <?= $this->Html->image("logo.png", ["alt" => "RBR", "class" => "brandImage navHiRes"])?>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

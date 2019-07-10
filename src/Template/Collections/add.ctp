@@ -13,7 +13,8 @@ $( function() {
     });
 });
 </script>
-<h3>Residential Waste Tracking</h3>
+ <?= $this->Html->link('Pickup History', ['controller' => 'Collections', 'action' => 'index']); ?>
+<h3>Residential Tracking</h3>
 <?= $this->Form->create($collection, ['id' => 'addForm'])?>
     <?= $this->Form->control('customer_user_id', ['type'=>'number', 'default' => $customerId, 'label' => 'Customer #'] )?>
     <hr/>
