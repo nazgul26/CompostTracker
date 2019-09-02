@@ -87,7 +87,7 @@ class SubscribersController extends AppController
                     $subscriber->email = $customer["email"];
                     $subscriber->external_id = $customer["id"];
                 } else {
-                    $subscriber = $subscriber->first();
+                    $subscriber = $query->first();
                 }
 
                 if ($chargeBeeEvent == "subscription_started" || $chargeBeeEvent == "subscription_created") {
