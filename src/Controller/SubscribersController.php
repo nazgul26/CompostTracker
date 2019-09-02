@@ -93,7 +93,7 @@ class SubscribersController extends AppController
                 if ($chargeBeeEvent == "subscription_started" || $chargeBeeEvent == "subscription_created") {
                     $subscriber->active = true;
                 } else if ($chargeBeeEvent == "subscription_cancelled" || $chargeBeeEvent == "subscription_deleted") {
-                    $subscriber->active = true;
+                    $subscriber->active = false;
                 }
                 if ($chargeBeeEvent == "subscription_shipping_address_updated") {
                     // Get shipping address / phone
