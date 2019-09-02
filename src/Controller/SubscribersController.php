@@ -75,19 +75,33 @@ class SubscribersController extends AppController
             $response = true;
             $customerId = $customer["id"];
 
-            if ($chargeBeeEvent == "subscription_started") {
+            
+            if (isset($customerId)) {
                 $subscriber = $this->Subscribers->findByExternalId($customerId);
                 if ($subscriber->count() == 0) {
+                    // Need to create it
                     $subscriber = $this->Subscribers->newEntity();
                     $subscriber->first_name = $customer["first_name"];
                     $subscriber->last_name = $customer["last_name"];
                     $subscriber->email = $customer["email"];
                     $subscriber->external_id = $customer["id"];
-                    if ($this->Subscribers->save($subscriber)) {
-                        $response = true;
-                    } else {
-                        $response = false;
-                    }
+                }
+
+                if ($chargeBeeEvent == "subscription_started" || $chargeBeeEvent == "subscription_created") {
+                    $subscriber->active = true;
+                } else if ($chargeBeeEvent == "subscription_cancelled" || $chargeBeeEvent == "subscription_deleted") {
+                    $subscriber->active = true;
+                }
+                if ($chargeBeeEvent == "subscription_shipping_address_updated") {
+                    // Get shipping address / phone
+                    $shipping = $subscription["shipping_address"];
+                    $subscriber->phone = $shipping["phone"];
+                }
+
+                if ($this->Subscribers->save($subscriber)) {
+                    $response = true;
+                } else {
+                    $response = false;
                 }
             }
 
