@@ -143,9 +143,10 @@ INSERT INTO locations_containers (location_id, container_id) VALUES (3, 2);
 
 
 /* V2.1 Migration */
-DROP TABLE zones;
+
 ALTER TABLE users DROP COLUMN zone_id;
 ALTER TABLE users DROP COLUMN stripe_id;
+DROP TABLE zones;
 ALTER TABLE collections DROP COLUMN customer_user_id;
 ALTER TABLE collections ADD `subscriber_id` INT NULL REFERENCES subscribers(id) ON DELETE SET DEFAULT ON UPDATE CASCADE;
 INSERT INTO subscribers (external_id, first_name, last_name, email) VALUES ('12345', 'First', 'Last', 'my@email.com');
