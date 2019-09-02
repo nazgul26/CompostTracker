@@ -77,14 +77,17 @@ class SubscribersController extends AppController
 
             
             if (isset($customerId)) {
-                $subscriber = $this->Subscribers->findByExternalId($customerId);
-                if ($subscriber->count() == 0) {
+                $subscriber = null;
+                $query = $this->Subscribers->findByExternalId($customerId);
+                if ($query->count() == 0) {
                     // Need to create it
                     $subscriber = $this->Subscribers->newEntity();
                     $subscriber->first_name = $customer["first_name"];
                     $subscriber->last_name = $customer["last_name"];
                     $subscriber->email = $customer["email"];
                     $subscriber->external_id = $customer["id"];
+                } else {
+                    $subscriber = $subscriber->first();
                 }
 
                 if ($chargeBeeEvent == "subscription_started" || $chargeBeeEvent == "subscription_created") {
