@@ -66,6 +66,7 @@ class SubscribersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $request = $this->request->getData();
             $content = $request["content"];
+            print_r($request);
             $jsonData = json_decode($content,true);
             $chargeBeeEvent = $request["event_type"];
             $customer = $jsonData["customer"];
