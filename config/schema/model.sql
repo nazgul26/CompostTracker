@@ -29,7 +29,11 @@ CREATE TABLE subscribers (
 	`last_name` VARCHAR(64) NOT NULL DEFAULT '',
 	`active` TINYINT(1) NOT NULL DEFAULT 0,
 	`phone` VARCHAR(64) NULL,
-	`address_id` INT NULL REFERENCES address(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
+	`street1` VARCHAR(255) NULL,
+	`street2` VARCHAR(255) NULL,
+	`city` VARCHAR(255) NULL,
+	`state_code` VARCHAR(2) NULL,
+	`zip` VARCHAR(60) NULL
 	PRIMARY KEY (id)
 );
 

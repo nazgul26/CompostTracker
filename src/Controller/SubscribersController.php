@@ -39,9 +39,6 @@ class SubscribersController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => [
-                //'Addresses'
-            ],
             'order' => ['Subscriber.last_name' => 'DESC']
         ];
         $subscribers = $this->paginate($this->Subscribers);
@@ -99,6 +96,10 @@ class SubscribersController extends AppController
                     // Get shipping address / phone
                     $shipping = $subscription["shipping_address"];
                     $subscriber->phone = $shipping["phone"];
+                    $subscriber->street1 = $shipping["street1"];
+                    $subscriber->street2 = $shipping["street2"];
+                    $subscriber->city = $shipping["city"];
+                    $subscriber->state_code = $shipping["state_code"];
                 }
 
                 if ($this->Subscribers->save($subscriber)) {

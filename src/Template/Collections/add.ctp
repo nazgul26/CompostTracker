@@ -19,15 +19,25 @@ $( function() {
     <?= $this->Form->control('subscriber_id', ['type'=>'number', 'default' => $subscriberId, 'label' => 'Subscriber #'] )?>
     <hr/>
     <?php if (isset($subscriber)) : ?>
-    <div class="customerAddress">
-    <?= $subscriber->first_name ?> <?= $subscriber->last_name ?><br/>
-    <?= $subscriber->address->street1 ?><br/>
-    <?= $subscriber->address->city ?>
-    </div>
+        <div class="customerAddress">
+        <?= $subscriber->first_name ?> <?= $subscriber->last_name ?><br/>
+        <?= $subscriber->street1 ?><br/>
+        <?= $subscriber->city ?>
+        </div>
+        <?php if (!$subscriber->active) : ?>
+            <div class="alert alert-warning" role="alert">
+            This account is currently not Active!
+            </div>
+        <?php endif;?>
+        <?= $this->Form->control('pounds'); ?> 
+        <?= $this->Form->control('note', ['autocomplete' => 'off'])?>
+        <p>
+            <button type="submit" class="btn btn-primary" id="savePickup">Submit</button>
+        </p>
+    <?php else:?>
+        <div class="alert alert-danger" role="alert">
+        Subscriber could not be found!
+        </div>
     <?php endif;?>
-    <?= $this->Form->control('pounds'); ?> 
-    <?= $this->Form->control('note', ['autocomplete' => 'off'])?>
-    <p>
-        <button type="submit" class="btn btn-primary" id="savePickup">Submit</button>
-    </p>
+
 <?= $this->Form->end() ?>

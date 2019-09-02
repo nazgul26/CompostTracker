@@ -47,11 +47,8 @@ class CollectionsController extends AppController
         }
 
         if ($subscriberId) {
-            echo "Looking for " . $subscriberId;
             if ($this->Collections->Subscriber->exists(['id' => $subscriberId])) {
-                $subscriber = $this->Collections->Subscriber->get($subscriberId, [ 'contain' => 'Addresses']);
-            } else {
-                $this->Flash->error(__('Subscriber could not be found. Please try again.'));
+                $subscriber = $this->Collections->Subscriber->get($subscriberId);
             }
         }
 
