@@ -40,7 +40,7 @@ class SubscribersController extends AppController
     {
         $this->paginate = [
             'contain' => [
-                'Addresses'
+                //'Addresses'
             ],
             'order' => ['Subscriber.last_name' => 'DESC']
         ];

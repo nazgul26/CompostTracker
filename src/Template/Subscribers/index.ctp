@@ -4,8 +4,12 @@
         <thead>
             <tr>
                 <th><?= __('Actions') ?></th>
-                <th><?= $this->Paginator->sort('Subscriber') ?></th>
+                <th><?= $this->Paginator->sort('RBR ID') ?></th>
                 <th><?= $this->Paginator->sort('ChargeBee ID') ?></th>
+                <th><?= $this->Paginator->sort('Active') ?></th>
+                <th><?= $this->Paginator->sort('Subscriber Name') ?></th>
+                <th><?= $this->Paginator->sort('Email') ?></th>
+                <th><?= $this->Paginator->sort('Phone') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -15,8 +19,12 @@
                     <?= $this->Html->link(__('Details'), ['action' => 'details', $subscriber->external_id]) ?> | 
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $subscriber->id], ['confirm' => __('Are you sure you want to delete this subscriber?', $subscriber->id)]) ?>    
                 </td>
-                <td><?= h($subscriber->first_name) . ' ' . h($subscriber->last_name) ?></td>
+                <td><?= h($subscriber->id) ?></td>
                 <td><?= h($subscriber->external_id) ?></td>
+                <td><?= h($subscriber->active) ?></td>
+                <td><?= h($subscriber->first_name) . ' ' . h($subscriber->last_name) ?></td>
+                <td><?= h($subscriber->email) ?></td>
+                <td><?= h($subscriber->phone) ?></td>
             </tr>
             <?php endforeach; ?>
         </tbody>
