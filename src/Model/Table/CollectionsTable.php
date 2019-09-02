@@ -37,9 +37,9 @@ class CollectionsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('Customer', [
-            'className' => 'Users',
-            'foreignKey' => 'customer_user_id',
+        $this->belongsTo('Subscriber', [
+            'className' => 'Subscribers',
+            'foreignKey' => 'subscriber_id',
             'joinType' => 'INNER'
         ]);
         
@@ -86,7 +86,7 @@ class CollectionsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['customer_user_id'], 'Customer'));
+        $rules->add($rules->existsIn(['subscriber_id'], 'Subscriber'));
         $rules->add($rules->existsIn(['worker_user_id'], 'Worker'));
 
         return $rules;

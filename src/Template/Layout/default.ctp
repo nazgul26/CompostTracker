@@ -137,7 +137,12 @@ $cakeDescription = 'Rust Belt Riders';
                         <?= $this->Html->link('Residential Pickups', 
                         ['controller' => 'Collections', 'action' => 'index']); ?>
                     </li>
+                    <li>
+                        <?= $this->Html->link('Residential Subscribers', 
+                        ['controller' => 'Subscribers', 'action' => 'index']); ?>
+                    </li>
                     <?php if ($isAdmin) {?>
+
                     <li>
                         <?= $this->Html->link('User Administrator', 
                         ['controller' => 'Users', 'action' => 'index']);?>
@@ -155,11 +160,6 @@ $cakeDescription = 'Rust Belt Riders';
                     <li>
                         <?= $this->Html->link('Drop Off Locations', 
                         ['controller' => 'Dropoffs', 'action' => 'index']);?>
-                    </li>
-
-                    <li>
-                        <?= $this->Html->link('Service Zones', 
-                        ['controller' => 'Zones', 'action' => 'index']);?>
                     </li>
                     <?php } ?>
                 </ul>

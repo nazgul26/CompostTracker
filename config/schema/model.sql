@@ -15,11 +15,20 @@ CREATE TABLE users (
 	`email` VARCHAR(64) NOT NULL UNIQUE,
 	`created` DATETIME,
 	`modified` DATETIME,
-	`stripe_id` VARCHAR(255) NULL,
 	`client_id` INT NULL REFERENCES clients(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
 	`address_id` INT NULL REFERENCES address(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
-	`zone_id` INT NULL REFERENCES zones(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
 	`active` TINYINT(1) NOT NULL DEFAULT 1
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE subscribers (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`external_id` VARCHAR(255) NULL, -- Unique ID in Strip/ChargeBee etc.
+	`email` VARCHAR(32) NOT NULL UNIQUE,
+	`first_name` VARCHAR(64) NOT NULL DEFAULT '',
+	`last_name` VARCHAR(64) NOT NULL DEFAULT '',
+	`phone` VARCHAR(64) NULL,
+	`address_id` INT NULL REFERENCES address(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
 	PRIMARY KEY (id)
 );
 
@@ -92,20 +101,11 @@ CREATE TABLE addresses (
 
 CREATE TABLE collections (
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`customer_user_id` INT NULL REFERENCES users(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
+	`subscriber_id` INT NULL REFERENCES subscribers(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
 	`worker_user_id` INT NULL REFERENCES users(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
     `pounds` FLOAT NOT NULL,
     `pickup_date` DATETIME,
 	`note` VARCHAR(255) NULL,
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE zones (
-	`id` INT NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(255) NOT NULL,
-	`coordinates` TEXT NOT NULL,
-	`active` BOOLEAN NOT NULL,
-	`collection_day` INT NULL,
 	PRIMARY KEY (id)
 );
 
@@ -142,23 +142,10 @@ INSERT INTO locations_containers (location_id, container_id) VALUES (3, 2);
 
 
 
-/* V2 Migration */
-
--- 1 create addresses table --
--- 2 create table collections
--- 3 create table zones
--- 4 Update Users Table
-ALTER TABLE users add `address_id` INT NULL REFERENCES addresses(id) ON DELETE SET DEFAULT ON UPDATE CASCADE;
-ALTER TABLE users CHANGE COLUMN  `name` `first_name` VARCHAR(64) NOT NULL DEFAULT '';
-ALTER TABLE users ADD `last_name` VARCHAR(64) NOT NULL DEFAULT '';
-ALTER TABLE users ADD `phone` VARCHAR(64) NULL;
-ALTER TABLE users ADD `stripe_id` VARCHAR(255) NULL;
-ALTER TABLE users ADD `zone_id` INT NULL REFERENCES zones(id) ON DELETE SET DEFAULT ON UPDATE CASCADE;
-ALTER TABLE users ADD `active` TINYINT(1) NOT NULL DEFAULT 1;
-ALTER TABLE containers ADD `weight` INT NOT NULL DEFAULT 0;
-CREATE TABLE dropoffs (
-	`id` INT NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(255) NOT NULL,
-	PRIMARY KEY (id)
-);
-ALTER TABLE pickups ADD `dropoff_id` INT NULL REFERENCES dropoffs(id) ON DELETE SET DEFAULT ON UPDATE CASCADE;
+/* V2.1 Migration */
+DROP TABLE zones;
+ALTER TABLE users DROP COLUMN zone_id;
+ALTER TABLE users DROP COLUMN stripe_id;
+ALTER TABLE collections DROP COLUMN customer_user_id;
+ALTER TABLE collections ADD `subscriber_id` INT NULL REFERENCES subscribers(id) ON DELETE SET DEFAULT ON UPDATE CASCADE;
+INSERT INTO subscribers (external_id, first_name, last_name, email) VALUES ('12345', 'First', 'Last', 'my@email.com');

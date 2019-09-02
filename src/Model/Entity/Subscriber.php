@@ -4,14 +4,19 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Zone Entity
+ * Collection Entity
  *
  * @property int $id
- * @property string $name
- * @property string $coordinates
- * @property bool $active
+ * @property int $customer_user_id
+ * @property int $worker_user_id
+ * @property float $pounds
+ * @property \Cake\I18n\FrozenTime $pickup_date
+ * @property string $note
+ *
+ * @property \App\Model\Entity\CustomerUser $customer_user
+ * @property \App\Model\Entity\WorkerUser $worker_user
  */
-class Zone extends Entity
+class Subscriber extends Entity
 {
 
     /**

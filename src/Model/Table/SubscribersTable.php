@@ -3,21 +3,16 @@
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-class UsersTable extends Table
+class SubscribersTable extends Table
 {
     public function initialize(array $config)
     {
         parent::initialize($config);
         
         $this->addBehavior('Timestamp');
-        $this->setTable('users');
+        $this->setTable('subscribers');
         $this->setDisplayField('email');
         $this->setPrimaryKey('id');
-
-        $this->belongsTo('Clients', [
-            'foreignKey' => 'client_id',
-            'joinType' => 'INNER'
-        ]);
 
         $this->belongsTo('Addresses', [
             'foreignKey' => 'address_id',

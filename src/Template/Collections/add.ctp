@@ -8,7 +8,7 @@
 $( function() {
     $('#navAddResidentialPickup').addClass('active');
 
-    $('#customer-user-id').change(function() {
+    $('#subscriber-id').change(function() {
         window.location = "<?=$addUrl?>/" +  $(this).val();
     });
 });
@@ -16,13 +16,13 @@ $( function() {
  <?= $this->Html->link('Pickup History', ['controller' => 'Collections', 'action' => 'index']); ?>
 <h3>Residential Tracking</h3>
 <?= $this->Form->create($collection, ['id' => 'addForm'])?>
-    <?= $this->Form->control('customer_user_id', ['type'=>'number', 'default' => $customerId, 'label' => 'Customer #'] )?>
+    <?= $this->Form->control('subscriber_id', ['type'=>'number', 'default' => $subscriberId, 'label' => 'Subscriber #'] )?>
     <hr/>
-    <?php if (isset($customer)) : ?>
+    <?php if (isset($subscriber)) : ?>
     <div class="customerAddress">
-    <?= $customer->first_name ?> <?= $customer->last_name ?><br/>
-    <?= $customer->address->street1 ?><br/>
-    <?= $customer->address->city ?>
+    <?= $subscriber->first_name ?> <?= $subscriber->last_name ?><br/>
+    <?= $subscriber->address->street1 ?><br/>
+    <?= $subscriber->address->city ?>
     </div>
     <?php endif;?>
     <?= $this->Form->control('pounds'); ?> 

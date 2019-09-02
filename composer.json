@@ -11,7 +11,8 @@
         "cakephp/migrations": "^1.0",
         "cakephp/plugin-installer": "^1.0",
         "friendsofcake/bootstrap-ui": "^1.2",
-        "stripe/stripe-php": "^6.6"
+        "stripe/stripe-php": "^6.6",
+        "chargebee/chargebee-php": ">=2, <3"
     },
     "require-dev": {
         "psy/psysh": "@stable",

@@ -22,7 +22,7 @@ class CollectionsController extends AppController
     {
         $this->paginate = [
             'contain' => [
-                'Worker', 'Customer'
+                'Worker', 'Subscriber'
             ],
             'order' => ['Collections.pickup_date' => 'DESC']
         ];
@@ -32,7 +32,7 @@ class CollectionsController extends AppController
         $this->set('_serialize', ['collections']);
     }
 
-    public function add($customerId = null) {
+    public function add($subscriberId = null) {
         $collection = $this->Collections->newEntity();
         if ($this->request->is('post')) {
             $requestData = $this->request->getData();
@@ -46,15 +46,16 @@ class CollectionsController extends AppController
             $this->Flash->error(__('The collection could not be saved. Please, try again.'));
         }
 
-        if ($customerId) {
-            if ($this->Collections->Customer->exists(['id' => $customerId])) {
-            $customer = $this->Collections->Customer->get($customerId, [ 'contain' => 'Addresses']);
+        if ($subscriberId) {
+            echo "Looking for " . $subscriberId;
+            if ($this->Collections->Subscriber->exists(['id' => $subscriberId])) {
+                $subscriber = $this->Collections->Subscriber->get($subscriberId, [ 'contain' => 'Addresses']);
             } else {
-                $this->Flash->error(__('Customer could not be found. Please try again.'));
+                $this->Flash->error(__('Subscriber could not be found. Please try again.'));
             }
         }
 
-        $this->set(compact('collection', 'customer', 'customerId'));
+        $this->set(compact('collection', 'subscriber', 'subscriberId'));
         $this->set('_serialize', ['collection']);
     }
 
