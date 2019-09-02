@@ -67,10 +67,10 @@ class SubscribersController extends AppController
             $request = $this->request->getData();
             $content = $request["content"];
             print_r($request);
-            $jsonData = json_decode($content,true);
+            //$content = json_decode($content,true);
             $chargeBeeEvent = $request["event_type"];
-            $customer = $jsonData["customer"];
-            $subscription = $jsonData["subscription"];
+            $customer = $content["customer"];
+            $subscription = $content["subscription"];
             
             $response = true;
             $customerId = $customer["id"];
