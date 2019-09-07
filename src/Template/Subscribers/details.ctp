@@ -3,6 +3,7 @@ Active: <?= $subscriber->active ?><br/>
 Email: <?= $chargeBee->email ?><br/>
 Phone: <?= $subscriber->phone ?><br/>
 Last Updated: <?= $chargeBee->updatedAt ?><br/>
+Pickup Location: <?= $chargeBee->cfBucketLocation ?> <br/>
 <br/>
 <div class="panel panel-default">
   <div class="panel-heading">Address</div>

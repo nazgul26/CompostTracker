@@ -22,10 +22,13 @@ $( function() {
     <?= $this->Form->control('subscriber_id', ['type'=>'number', 'default' => $subscriberId, 'label' => 'Subscriber #'] )?>
     <hr/>
     <?php if (isset($subscriber)) : ?>
-        <div class="customerAddress">
-        <?= $subscriber->first_name ?> <?= $subscriber->last_name ?><br/>
-        <?= $subscriber->street1 ?><br/>
-        <?= $subscriber->city ?>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <?= $subscriber->first_name ?> <?= $subscriber->last_name ?><br/>
+                <?= $subscriber->street1 ?><br/>
+                <?= $subscriber->city ?>
+            </div>
+            <div class="panel-footer"><?= $this->Html->link(__('more details...'), ['controller' => 'subscribers', 'action' => 'details', $subscriber->id]) ?></div>
         </div>
         <?php if (!$subscriber->active) : ?>
             <div class="alert alert-warning" role="alert">
