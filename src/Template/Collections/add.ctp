@@ -8,8 +8,11 @@
 $( function() {
     $('#navAddResidentialPickup').addClass('active');
 
-    $('#subscriber-id').change(function() {
-        window.location = "<?=$addUrl?>/" +  $(this).val();
+    $('#loadSubscriber').click(function(e) {
+        e.preventDefault();
+        $subscriberId = $('#subscriber-id').val();
+        window.location = "<?=$addUrl?>/" +  $subscriberId;
+        return false;
     });
 });
 </script>
@@ -29,15 +32,14 @@ $( function() {
             This account is currently not Active!
             </div>
         <?php endif;?>
+
         <?= $this->Form->control('pounds'); ?> 
         <?= $this->Form->control('note', ['autocomplete' => 'off'])?>
         <p>
             <button type="submit" class="btn btn-primary" id="savePickup">Submit</button>
         </p>
     <?php else:?>
-        <div class="alert alert-danger" role="alert">
-        Subscriber could not be found!
-        </div>
+        <button type="button" class="btn btn-info" id="loadSubscriber" style="width: 100%;">Load</button>
     <?php endif;?>
 
 <?= $this->Form->end() ?>

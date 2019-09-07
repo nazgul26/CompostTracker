@@ -49,6 +49,8 @@ class CollectionsController extends AppController
         if ($subscriberId) {
             if ($this->Collections->Subscriber->exists(['id' => $subscriberId])) {
                 $subscriber = $this->Collections->Subscriber->get($subscriberId);
+            } else {
+                $this->Flash->error(__('Subscriber could not be found. Please try again.'));
             }
         }
 

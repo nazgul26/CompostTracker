@@ -47,10 +47,25 @@ class SubscribersController extends AppController
         $this->set('_serialize', ['subscribers']);
     }
 
-    public function details($subscriberId = null) {
-        $result = ChargeBee_Customer::retrieve($subscriberId);
-        $subscriber = $result->customer();
-        $this->set(compact('subscriber'));
+    public function details($id = null) {
+        $subscriber = $this->Subscribers->get($id);
+        $result = ChargeBee_Customer::retrieve($subscriber->external_id);
+        $chargeBee = $result->customer();
+        
+        $this->set(compact('subscriber', 'chargeBee'));
+    }
+
+    public function delete($id = null)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+        $subscriber = $this->Subscribers->get($id);
+        if ($this->Subscribers->delete($subscriber)) {
+            $this->Flash->success(__('The subscriber has been deleted.'));
+        } else {
+            $this->Flash->error(__('The subscriber could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'index']);
     }
 
     /*
@@ -71,8 +86,7 @@ class SubscribersController extends AppController
             
             $response = true;
             $customerId = $customer["id"];
-
-            
+ 
             if (isset($customerId)) {
                 $subscriber = null;
                 $query = $this->Subscribers->findByExternalId($customerId);
@@ -87,12 +101,13 @@ class SubscribersController extends AppController
                     $subscriber = $query->first();
                 }
 
-                if ($chargeBeeEvent == "subscription_started" || $chargeBeeEvent == "subscription_created") {
+                if ($chargeBeeEvent == "subscription_started" || 
+                    $chargeBeeEvent == "subscription_created") {
                     $subscriber->active = true;
-                } else if ($chargeBeeEvent == "subscription_cancelled" || $chargeBeeEvent == "subscription_deleted") {
+                } else if ($chargeBeeEvent == "subscription_cancelled" || 
+                            $chargeBeeEvent == "subscription_deleted") {
                     $subscriber->active = false;
-                }
-                if ($chargeBeeEvent == "subscription_shipping_address_updated") {
+                } else if ($chargeBeeEvent == "subscription_shipping_address_updated") {
                     // Get shipping address / phone
                     $shipping = $subscription["shipping_address"];
                     $subscriber->phone = $shipping["phone"];

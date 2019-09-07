@@ -191,5 +191,6 @@ $cakeDescription = 'Rust Belt Riders';
         <a href="https://twitter.com/@rustbeltriders" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a>
         <a href="mailto:support@rustbeltriders.com" target="_blank"><i class="fas fa-envelope-square fa-2x"></i></a>
         <p>5401 Hamilton Avenue, Cleveland, OH, 44114, United States <br/>216-800-4651</p>
+    </div>
 </body>
 </html>

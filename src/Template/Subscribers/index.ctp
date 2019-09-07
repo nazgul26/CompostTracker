@@ -16,7 +16,7 @@
             <?php foreach ($subscribers as $subscriber): ?>
             <tr>
                <td>
-                    <?= $this->Html->link(__('Details'), ['action' => 'details', $subscriber->external_id]) ?> | 
+                    <?= $this->Html->link(__('Details'), ['action' => 'details', $subscriber->id]) ?> | 
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $subscriber->id], ['confirm' => __('Are you sure you want to delete this subscriber?', $subscriber->id)]) ?>    
                 </td>
                 <td><?= h($subscriber->id) ?></td>
