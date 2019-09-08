@@ -137,7 +137,7 @@ class SubscribersController extends AppController
                 }
             }
 
-            $this->set(compact('response', 'customerId'));
+            $this->set(compact('response', 'customerId', 'lastStep'));
             $this->RequestHandler->renderAs($this, 'json');
         }
     }
