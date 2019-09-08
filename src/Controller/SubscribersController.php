@@ -82,6 +82,7 @@ class SubscribersController extends AppController
             $subscription = $content["subscription"];
             
             $response = false;
+            $lastStep = "start";
             $customerId = $customer["id"];
  
             if (isset($customerId)) {
@@ -128,6 +129,7 @@ class SubscribersController extends AppController
                     $subscriber->active = false;
                 }
 
+                $lastStep = "before save";
                 if ($this->Subscribers->save($subscriber)) {
                     $response = true;
                 } else {
