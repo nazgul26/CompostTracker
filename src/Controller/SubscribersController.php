@@ -81,7 +81,7 @@ class SubscribersController extends AppController
             $customer = $content["customer"];
             $subscription = $content["subscription"];
             
-            $response = true;
+            $response = false;
             $customerId = $customer["id"];
  
             if (isset($customerId)) {
