@@ -76,7 +76,7 @@ class SubscribersController extends AppController
             $request = $this->request->getData();
             $content = $request["content"];
             print_r($request);
-            $content = json_decode($content,true);
+            //$content = json_decode($content,true);
             $chargeBeeEvent = $request["event_type"];
             $customer = $content["customer"];
             $subscription = isset($content["subscription"]) ? $content["subscription"] : null;
