@@ -27,6 +27,7 @@ CREATE TABLE subscribers (
 	`email` VARCHAR(32) NOT NULL UNIQUE,
 	`first_name` VARCHAR(64) NOT NULL DEFAULT '',
 	`last_name` VARCHAR(64) NOT NULL DEFAULT '',
+	`bucket_location` VARCHAR(255) NULl,
 	`active` TINYINT(1) NOT NULL DEFAULT 0,
 	`phone` VARCHAR(64) NULL,
 	`street1` VARCHAR(255) NULL,
@@ -155,3 +156,5 @@ DROP TABLE zones;
 ALTER TABLE collections DROP COLUMN customer_user_id;
 ALTER TABLE collections ADD `subscriber_id` INT NULL REFERENCES subscribers(id) ON DELETE SET DEFAULT ON UPDATE CASCADE;
 INSERT INTO subscribers (external_id, first_name, last_name, email) VALUES ('12345', 'First', 'Last', 'my@email.com');
+
+ALTER TABLE subscribers ADD bucket_location VARCHAR(255) NULl;

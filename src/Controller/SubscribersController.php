@@ -48,11 +48,8 @@ class SubscribersController extends AppController
     }
 
     public function details($id = null) {
-        $subscriber = $this->Subscribers->get($id);
-        $result = ChargeBee_Customer::retrieve($subscriber->external_id);
-        $chargeBee = $result->customer();
-        
-        $this->set(compact('subscriber', 'chargeBee'));
+        $subscriber = $this->Subscribers->get($id); 
+        $this->set(compact('subscriber'));
     }
 
     public function delete($id = null)
@@ -93,28 +90,42 @@ class SubscribersController extends AppController
                 if ($query->count() == 0) {
                     // Need to create it
                     $subscriber = $this->Subscribers->newEntity();
-                    $subscriber->first_name = $customer["first_name"];
-                    $subscriber->last_name = $customer["last_name"];
-                    $subscriber->email = $customer["email"];
-                    $subscriber->external_id = $customer["id"];
                 } else {
                     $subscriber = $query->first();
                 }
 
+                if ($chargeBeeEvent == "customer_created" ||
+                    $chargeBeeEvent == "customer_updated" ||
+                    $chargeBeeEvent == "subscription_created" ||
+                    $chargeBeeEvent == "subscription_updated" ||
+                    $chargeBeeEvent == "subscription_shipping_address_updated") {
+
+                    // Update fields
+                    $subscriber->first_name = $customer["first_name"];
+                    $subscriber->last_name = $customer["last_name"];
+                    $subscriber->email = $customer["email"];
+                    $subscriber->external_id = $customer["id"];
+                    $subscriber->bucket_location = $customer["cf_bucket_location"];
+                    // Get shipping address / phone
+                    if (isset($subscription)) {
+                        $shipping = $subscription["shipping_address"];
+                        if (isset($shipping)) {
+                            $subscriber->phone = $shipping["phone"];
+                            $subscriber->street1 = $shipping["line1"];
+                            $subscriber->street2 = $shipping["line2"];
+                            $subscriber->city = $shipping["city"];
+                            $subscriber->state_code = $shipping["state_code"];
+                        }
+                    }
+                }
+
                 if ($chargeBeeEvent == "subscription_started" || 
                     $chargeBeeEvent == "subscription_created") {
+
                     $subscriber->active = true;
                 } else if ($chargeBeeEvent == "subscription_cancelled" || 
-                            $chargeBeeEvent == "subscription_deleted") {
+                           $chargeBeeEvent == "subscription_deleted") {
                     $subscriber->active = false;
-                } else if ($chargeBeeEvent == "subscription_shipping_address_updated") {
-                    // Get shipping address / phone
-                    $shipping = $subscription["shipping_address"];
-                    $subscriber->phone = $shipping["phone"];
-                    $subscriber->street1 = $shipping["street1"];
-                    $subscriber->street2 = $shipping["street2"];
-                    $subscriber->city = $shipping["city"];
-                    $subscriber->state_code = $shipping["state_code"];
                 }
 
                 if ($this->Subscribers->save($subscriber)) {
