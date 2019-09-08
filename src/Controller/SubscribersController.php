@@ -76,10 +76,10 @@ class SubscribersController extends AppController
             $request = $this->request->getData();
             $content = $request["content"];
             print_r($request);
-            //$content = json_decode($content,true);
+            $content = json_decode($content,true);
             $chargeBeeEvent = $request["event_type"];
             $customer = $content["customer"];
-            $subscription = $content["subscription"];
+            $subscription = isset($content["subscription"]) ? $content["subscription"] : null;
             
             $response = false;
             $lastStep = "start";
@@ -107,7 +107,17 @@ class SubscribersController extends AppController
                     $subscriber->email = $customer["email"];
                     $subscriber->external_id = $customer["id"];
                     $subscriber->bucket_location = $customer["cf_bucket_location"];
-                    // Get shipping address / phone
+                    
+                    $billing = isset($customer["billing_address"]) ?  $customer["billing_address"] : null;
+                    if (isset($billing)) {
+                        $subscriber->phone = $billing["phone"];
+                        $subscriber->street1 = $billing["line1"];
+                        $subscriber->street2 = $billing["line2"];
+                        $subscriber->city = $billing["city"];
+                        $subscriber->state_code = $billing["state_code"];
+                    }
+
+                    // Get shipping address / phone will override billing values if set
                     if (isset($subscription)) {
                         $shipping = $subscription["shipping_address"];
                         if (isset($shipping)) {

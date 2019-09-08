@@ -1,5 +1,5 @@
 <form method="POST">
-<input name="event_type" value="subscription_started" />
+<input name="event_type" value="customer_created" />
 <textarea name="content">
 HI
 </textarea>
