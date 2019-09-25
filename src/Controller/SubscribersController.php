@@ -76,7 +76,7 @@ class SubscribersController extends AppController
             $request = $this->request->getData();
             $content = $request["content"];
             print_r($request);
-            //$content = json_decode($content,true);
+            //$content = json_decode($content,true); // LOCAL Debugging only.
             $chargeBeeEvent = $request["event_type"];
             $customer = $content["customer"];
             $subscription = isset($content["subscription"]) ? $content["subscription"] : null;
@@ -139,7 +139,6 @@ class SubscribersController extends AppController
                     $subscriber->active = false;
                 }
 
-                $lastStep = "before save";
                 if ($this->Subscribers->save($subscriber)) {
                     $response = true;
                 } else {

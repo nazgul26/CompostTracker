@@ -19,7 +19,7 @@ $( function() {
  <?= $this->Html->link('Pickup History', ['controller' => 'Collections', 'action' => 'index']); ?>
 <h3>Residential Tracking</h3>
 <?= $this->Form->create($collection, ['id' => 'addForm'])?>
-    <?= $this->Form->control('subscriber_id', ['type'=>'number', 'default' => $subscriberId, 'label' => 'Subscriber #'] )?>
+    <?= $this->Form->control('subscriber_id', ['type'=>'text', 'default' => $subscriberId, 'label' => 'Subscriber ID', 'placeholder'=>'first.last'] )?>
     <hr/>
     <?php if (isset($subscriber)) : ?>
         <div class="panel panel-default">

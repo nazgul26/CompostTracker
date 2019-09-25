@@ -47,8 +47,12 @@ class CollectionsController extends AppController
         }
 
         if ($subscriberId) {
-            if ($this->Collections->Subscriber->exists(['id' => $subscriberId])) {
-                $subscriber = $this->Collections->Subscriber->get($subscriberId);
+            $name = explode('.', $subscriberId);
+            $subscriberQuery = $this->Collections->Subscriber->find('all', [
+                'conditions' => ['Subscriber.first_name' => $name[0], 'Subscriber.last_name' => $name[1]]]);
+
+            if ($subscriberQuery->count() > 0) {
+                $subscriber = $subscriberQuery->first();
             } else {
                 $this->Flash->error(__('Subscriber could not be found. Please try again.'));
             }
