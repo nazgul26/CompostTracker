@@ -10,8 +10,8 @@ $( function() {
 
     $('#loadSubscriber').click(function(e) {
         e.preventDefault();
-        $subscriberId = $('#subscriber-id').val();
-        window.location = "<?=$addUrl?>/" +  $subscriberId;
+        $subscriberName = $('#subscriber-name').val();
+        window.location = "<?=$addUrl?>/" +  $subscriberName;
         return false;
     });
 });
@@ -19,7 +19,7 @@ $( function() {
  <?= $this->Html->link('Pickup History', ['controller' => 'Collections', 'action' => 'index']); ?>
 <h3>Residential Tracking</h3>
 <?= $this->Form->create($collection, ['id' => 'addForm'])?>
-    <?= $this->Form->control('subscriber_id', ['type'=>'text', 'default' => $subscriberId, 'label' => 'Subscriber ID', 'placeholder'=>'first.last'] )?>
+    <?= $this->Form->control('subscriber_name', ['type'=>'text', 'default' => $subscriberName, 'label' => 'Subscriber ID', 'placeholder'=>'first.last'] )?>
     <hr/>
     <?php if (isset($subscriber)) : ?>
         <div class="panel panel-default">

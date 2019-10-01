@@ -32,7 +32,7 @@ class CollectionsController extends AppController
         $this->set('_serialize', ['collections']);
     }
 
-    public function add($subscriberId = null) {
+    public function add($subscriberName = null) {
         $collection = $this->Collections->newEntity();
         if ($this->request->is('post')) {
             $requestData = $this->request->getData();
@@ -46,8 +46,8 @@ class CollectionsController extends AppController
             $this->Flash->error(__('The collection could not be saved. Please, try again.'));
         }
 
-        if ($subscriberId) {
-            $name = explode('.', $subscriberId);
+        if ($subscriberName) {
+            $name = explode('.', $subscriberName);
             $subscriberQuery = $this->Collections->Subscriber->find('all', [
                 'conditions' => ['Subscriber.first_name' => $name[0], 'Subscriber.last_name' => $name[1]]]);
 
@@ -58,7 +58,7 @@ class CollectionsController extends AppController
             }
         }
 
-        $this->set(compact('collection', 'subscriber', 'subscriberId'));
+        $this->set(compact('collection', 'subscriber', 'subscriberName'));
         $this->set('_serialize', ['collection']);
     }
 
