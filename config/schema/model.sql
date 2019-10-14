@@ -52,6 +52,7 @@ CREATE TABLE clients (
 	`contact_name` VARCHAR(32) NOT NULL DEFAULT '',
 	`contact_phone` VARCHAR(32) NOT NULL DEFAULT '',
 	`contact_email` VARCHAR(120) NOT NULL DEFAULT '',
+	`active` TINYINT(1) NOT NULL DEFAULT 1,
 	PRIMARY KEY (id)
 );
 
@@ -158,3 +159,5 @@ ALTER TABLE collections ADD `subscriber_id` INT NULL REFERENCES subscribers(id) 
 INSERT INTO subscribers (external_id, first_name, last_name, email) VALUES ('12345', 'First', 'Last', 'my@email.com');
 
 ALTER TABLE subscribers ADD bucket_location VARCHAR(255) NULl;
+
+ALTER TABLE clients ADD `active` TINYINT(1) NOT NULL DEFAULT 1;

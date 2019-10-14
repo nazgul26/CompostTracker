@@ -8,7 +8,10 @@ class ClientsController extends AppController
 {
     public function index()
     {
-        $clients = $this->paginate($this->Clients);
+        $clients = $this->paginate($this->Clients, ['order' => [
+            'Clients.active' => 'desc',
+            'Clients.name' => 'asc'
+        ]]);
 
         $this->set(compact('clients'));
         $this->set('_serialize', ['clients']);
@@ -40,14 +43,19 @@ class ClientsController extends AppController
         $this->set('_serialize', ['client']);
     }
 
-    public function delete($id = null)
+    public function activate($id = null, $enableDisable)
     {
         $this->request->allowMethod(['post', 'delete']);
         $client = $this->Clients->get($id);
-        if ($this->Clients->delete($client)) {
-            $this->Flash->success(__('The client has been deleted.'));
+        $client->active = $enableDisable;
+        if ($this->Clients->save($client)) {
+            if ($enableDisable) {
+                $this->Flash->success(__('The client has been activated.'));
+            } else {
+                $this->Flash->success(__('The client has been de-activated.'));
+            }
         } else {
-            $this->Flash->error(__('The client could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The client could not be saved. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

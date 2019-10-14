@@ -83,7 +83,8 @@ class PickupsController extends AppController
                 $this->Flash->error(__('The pickup could not be saved. Please, try again.'));
             }
         }
-        $clients = $this->Pickups->Locations->Sites->Clients->find('list', ['limit' => 200, 'order' => 'Clients.name']);
+        $clients = $this->Pickups->Locations->Sites->Clients->find('list', ['conditions' => ['Clients.active' => true],
+            'limit' => 200, 'order' => 'Clients.name']);
         $sites = $this->Pickups->Locations->Sites->find('list', ['conditions' => ['Sites.client_id' => $clientId], 'limit' => 200, 'order' => 'Sites.name']);
         $locations = $this->Pickups->Locations->find('list')->where(['Locations.site_id' => $siteId])->limit(200);
         $dropoffs = $this->Pickups->Dropoffs->find('list', ['order' => 'Dropoffs.name'])->limit(200);

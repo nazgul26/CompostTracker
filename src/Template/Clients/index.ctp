@@ -24,7 +24,12 @@ $( function() {
             <tr>
                <td>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $client->id]) ?> | 
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $client->id], ['confirm' => __('Are you sure you want to delete # {0}?', $client->id)]) ?>
+                    <?php if ($client->active) {
+                        echo $this->Form->postLink(__('De-Activate'), ['action' => 'activate', $client->id, 0], ['confirm' => __('Are you sure you want to de-activate {0}?', $client->name)]); 
+                    } else {
+                        echo $this->Form->postLink(__('Activate'), ['action' => 'activate', $client->id, 1], ['confirm' => __('Are you sure you want to activate {0}?', $client->name)]); 
+                    } 
+                    ?>
                 </td>
                 <td><?= h($client->name) ?></td>
             </tr>
