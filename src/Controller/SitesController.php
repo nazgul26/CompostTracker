@@ -9,9 +9,12 @@ class SitesController extends AppController
     {
         // Edit
         if ($siteId) {
-            $site = $this->Sites->get($siteId, [
-                'contain' => ['Clients', 'Locations']
-            ]);
+            $site = $this->Sites->find()->where(['Sites.Id' => $siteId])->contain([
+                'Clients',
+                'Locations' => [
+                    'sort' => ['Locations.active' => 'DESC', 'Locations.name' => 'ASC']
+                ]
+            ])->first();
         } else {  
         // Add - first load
             $site = $this->Sites->newEntity();
@@ -29,16 +32,21 @@ class SitesController extends AppController
         $this->set('_serialize', ['site']);
     }
 
-    public function delete($clientId, $id = null)
+    public function activate($clientId, $siteId, $enableDisable)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $site = $this->Sites->get($id);
-        if ($this->Sites->delete($site)) {
-            $this->Flash->success(__('The site has been deleted.'));
+        $site = $this->Sites->get($siteId);
+        $site->active = $enableDisable;
+        if ($this->Sites->save($site)) {
+            if ($enableDisable) {
+                $this->Flash->success(__('The site has been restored.'));
+            } else {
+                $this->Flash->success(__('The site has been removed.'));
+            }
         } else {
-            $this->Flash->error(__('The site could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The site could not be saved. Please, try again.'));
         }
 
-        return $this->redirect(['controller'=>'clients', 'action' => 'edit', $clientId]);
+        return $this->redirect(['controller' => 'clients', 'action' => 'edit', $clientId]);
     }
 }

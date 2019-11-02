@@ -36,9 +36,16 @@ $( function() {
     <?php foreach ($client->sites as $site): ?>
         <tr>
             <td>
-                <?= $this->Html->link(__('Edit'), ['controller'=>'sites', 'action' => 'edit', $id, $site->id]) ?> | 
-                <?= $this->Form->postLink(__('Delete'), ['controller' => 'sites', 'action' => 'delete', $id, $site->id], 
-                    ['confirm' => __('Are you sure you want to delete # {0}?', $site->id)]) ?>
+            <?php 
+                    if ($site->active) {
+                        echo $this->Html->link(__('Edit'), ['controller'=>'sites', 'action' => 'edit', $id, $site->id]) . " | ";
+                        echo $this->Form->postLink(__('Remove'), ['controller' => 'sites', 'action' => 'activate', $id, $site->id, 0], 
+                            ['confirm' => __('Are you sure you want to remove {0}?', $site->name)]);
+                    } else {
+                        echo $this->Form->postLink(__('Restore'), ['controller' => 'sites', 'action' => 'activate', $id, $site->id, 1], 
+                            ['confirm' => __('Are you sure you want to restore {0}?', $site->name)]);
+                    } 
+                    ?>
             </td>
             <td><?= h($site->name) ?></td>
         </tr>

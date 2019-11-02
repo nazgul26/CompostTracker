@@ -21,9 +21,11 @@ class ClientsController extends AppController
     {
         // Edit
         if ($id) {
-            $client = $this->Clients->get($id, [
-                'contain' => ['Sites']
-            ]);
+            $client = $this->Clients->find()->where(['id' => $id])->contain([
+                'Sites' => [
+                    'sort' => ['Sites.active' => 'DESC', 'Sites.name' => 'ASC']
+                ]
+            ])->first();
         } else {  
         // Add - first load
             $client = $this->Clients->newEntity();

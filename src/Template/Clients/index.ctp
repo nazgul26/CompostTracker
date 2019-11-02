@@ -23,11 +23,12 @@ $( function() {
             <?php foreach ($clients as $client): ?>
             <tr>
                <td>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $client->id]) ?> | 
-                    <?php if ($client->active) {
-                        echo $this->Form->postLink(__('De-Activate'), ['action' => 'activate', $client->id, 0], ['confirm' => __('Are you sure you want to de-activate {0}?', $client->name)]); 
+                    <?php 
+                    if ($client->active) {
+                        echo $this->Html->link(__('Edit'), ['action' => 'edit', $client->id]) . " | ";
+                        echo $this->Form->postLink(__('Remove'), ['action' => 'activate', $client->id, 0], ['confirm' => __('Are you sure you want to remove {0}?', $client->name)]); 
                     } else {
-                        echo $this->Form->postLink(__('Activate'), ['action' => 'activate', $client->id, 1], ['confirm' => __('Are you sure you want to activate {0}?', $client->name)]); 
+                        echo $this->Form->postLink(__('Restore'), ['action' => 'activate', $client->id, 1], ['confirm' => __('Are you sure you want to restore {0}?', $client->name)]); 
                     } 
                     ?>
                 </td>

@@ -32,16 +32,21 @@ class LocationsController extends AppController
         $this->set('_serialize', ['location']);
     }
 
-    public function delete($clientId, $siteId, $id = null)
+    public function activate($clientId, $siteId, $id, $enableDisable)
     {
         $this->request->allowMethod(['post', 'delete']);
         $location = $this->Locations->get($id);
-        if ($this->Locations->delete($location)) {
-            $this->Flash->success(__('The location has been deleted.'));
+        $location->active = $enableDisable;
+        if ($this->Locations->save($location)) {
+            if ($enableDisable) {
+                $this->Flash->success(__('The location has been restored.'));
+            } else {
+                $this->Flash->success(__('The location has been removed.'));
+            }
         } else {
-            $this->Flash->error(__('The location could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The location could not be saved. Please, try again.'));
         }
 
-        return $this->redirect(['controller'=>'sites', 'action' => 'edit', $clientId, $siteId]);
+        return $this->redirect(['controller' => 'sites', 'action' => 'edit', $clientId, $siteId]);
     }
 }

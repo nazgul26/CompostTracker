@@ -60,6 +60,7 @@ CREATE TABLE sites (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(32) NOT NULL DEFAULT '',
 	`client_id` INT NOT NULL REFERENCES clients(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
+	`active` TINYINT(1) NOT NULL DEFAULT 1,
 	PRIMARY KEY (id)	
 );
 
@@ -67,6 +68,7 @@ CREATE TABLE locations (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(32) NOT NULL,
 	`site_id` INT NOT NULL REFERENCES sites(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
+	`active` TINYINT(1) NOT NULL DEFAULT 1,
 	PRIMARY KEY (id)
 );
 
@@ -149,15 +151,6 @@ INSERT INTO locations_containers (location_id, container_id) VALUES (3, 2);
 
 
 
-/* V2.1 Migration */
-
-ALTER TABLE users DROP COLUMN zone_id;
-ALTER TABLE users DROP COLUMN stripe_id;
-DROP TABLE zones;
-ALTER TABLE collections DROP COLUMN customer_user_id;
-ALTER TABLE collections ADD `subscriber_id` INT NULL REFERENCES subscribers(id) ON DELETE SET DEFAULT ON UPDATE CASCADE;
-INSERT INTO subscribers (external_id, first_name, last_name, email) VALUES ('12345', 'First', 'Last', 'my@email.com');
-
-ALTER TABLE subscribers ADD bucket_location VARCHAR(255) NULl;
-
-ALTER TABLE clients ADD `active` TINYINT(1) NOT NULL DEFAULT 1;
+/* V2.2 Migration */
+ALTER TABLE sites ADD `active` TINYINT(1) NOT NULL DEFAULT 1;
+ALTER TABLE locations ADD `active` TINYINT(1) NOT NULL DEFAULT 1;
