@@ -9,14 +9,17 @@ class SitesController extends AppController
     {
         // Edit
         if ($siteId) {
+            echo "loading ID: " . $siteId;
             $site = $this->Sites->find()->where(['Sites.Id' => $siteId])->contain([
                 'Clients',
+                'Addresses',
                 'Locations' => [
                     'sort' => ['Locations.active' => 'DESC', 'Locations.name' => 'ASC']
                 ]
             ])->first();
         } else {  
-        // Add - first load
+            echo "adding new";
+            // Add - first load
             $site = $this->Sites->newEntity();
         }
 

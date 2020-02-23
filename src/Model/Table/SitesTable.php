@@ -41,6 +41,10 @@ class SitesTable extends Table
             'foreignKey' => 'client_id',
             'joinType' => 'INNER'
         ]);
+        $this->belongsTo('Addresses', [
+            'foreignKey' => 'address_id',
+            'joinType' => 'LEFT'
+        ]);
         $this->hasMany('Locations', [
             'foreignKey' => 'site_id'
         ]);

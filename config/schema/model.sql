@@ -53,6 +53,7 @@ CREATE TABLE clients (
 	`contact_phone` VARCHAR(32) NOT NULL DEFAULT '',
 	`contact_email` VARCHAR(120) NOT NULL DEFAULT '',
 	`active` TINYINT(1) NOT NULL DEFAULT 1,
+	`address_id` INT NULL REFERENCES addresses(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
 	PRIMARY KEY (id)
 );
 
@@ -154,3 +155,5 @@ INSERT INTO locations_containers (location_id, container_id) VALUES (3, 2);
 /* V2.2 Migration */
 ALTER TABLE sites ADD `active` TINYINT(1) NOT NULL DEFAULT 1;
 ALTER TABLE locations ADD `active` TINYINT(1) NOT NULL DEFAULT 1;
+
+ALTER TABLE sites add `address_id` INT NULL REFERENCES addresses(id) ON DELETE SET DEFAULT ON UPDATE CASCADE;
