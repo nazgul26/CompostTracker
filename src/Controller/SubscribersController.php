@@ -66,85 +66,74 @@ class SubscribersController extends AppController
     }
 
     /*
-        WebHook API for ChargeBee
+        WebHook API for Recurly
         Expected:
-            content - json data of charge bee subscription
-            id
+            XML data of invoice
     */
     public function webhook() {
         if ($this->request->is(['patch', 'post', 'put'])) {
             $request = $this->request->getData();
             $content = $request["content"];
-            print_r($request);
-            //$content = json_decode($content,true); // LOCAL Debugging only.
-            $chargeBeeEvent = $request["event_type"];
-            $customer = $content["customer"];
-            $subscription = isset($content["subscription"]) ? $content["subscription"] : null;
-            
-            $response = false;
-            $lastStep = "start";
-            $customerId = $customer["id"];
- 
-            if (isset($customerId)) {
-                $subscriber = null;
-                $query = $this->Subscribers->findByExternalId($customerId);
-                if ($query->count() == 0) {
-                    // Need to create it
-                    $subscriber = $this->Subscribers->newEntity();
-                } else {
-                    $subscriber = $query->first();
-                }
 
-                if ($chargeBeeEvent == "customer_created" ||
-                    $chargeBeeEvent == "customer_updated" ||
-                    $chargeBeeEvent == "subscription_created" ||
-                    $chargeBeeEvent == "subscription_updated" ||
-                    $chargeBeeEvent == "subscription_shipping_address_updated") {
+            if (strpos($content, "paid_charge_invoice_notification") == false) return;
+
+            $xml = simplexml_load_string($content);
+            $json = json_encode($xml);
+            $event = json_decode($json,TRUE);
+
+            //print_r($event);
+
+            if (isset($event)) {
+                
+                $customer = $event["account"];
+                $invoice = $event["invoice"];
+                
+                $response = false;
+                $lastStep = "Start";
+                $customerId = $customer["account_code"];
+    
+                if (isset($customerId)) {
+                    $subscriber = null;
+                    $query = $this->Subscribers->findByExternalId($customerId)->contain(['Addresses']);
+                    if ($query->count() == 0) {
+                        // Need to create it
+                        $subscriber = $this->Subscribers->newEntity();
+                    } else {
+                        $subscriber = $query->first();
+                    }
 
                     // Update fields
                     $subscriber->first_name = $customer["first_name"];
                     $subscriber->last_name = $customer["last_name"];
                     $subscriber->email = $customer["email"];
-                    $subscriber->external_id = $customer["id"];
-                    $subscriber->bucket_location = $customer["cf_bucket_location"];
-                    
-                    $billing = isset($customer["billing_address"]) ?  $customer["billing_address"] : null;
-                    if (isset($billing)) {
-                        $subscriber->phone = $billing["phone"];
-                        $subscriber->street1 = $billing["line1"];
-                        $subscriber->street2 = $billing["line2"];
-                        $subscriber->city = $billing["city"];
-                        $subscriber->state_code = $billing["state_code"];
-                    }
-
-                    // Get shipping address / phone will override billing values if set
-                    if (isset($subscription)) {
-                        $shipping = $subscription["shipping_address"];
-                        if (isset($shipping)) {
-                            $subscriber->phone = $shipping["phone"];
-                            $subscriber->street1 = $shipping["line1"];
-                            $subscriber->street2 = $shipping["line2"];
-                            $subscriber->city = $shipping["city"];
-                            $subscriber->state_code = $shipping["state_code"];
-                        }
-                    }
-                }
-
-                if ($chargeBeeEvent == "subscription_started" || 
-                    $chargeBeeEvent == "subscription_created") {
-
+                    $subscriber->phone = $customer["phone"];
                     $subscriber->active = true;
-                } else if ($chargeBeeEvent == "subscription_cancelled" || 
-                           $chargeBeeEvent == "subscription_deleted") {
-                    $subscriber->active = false;
-                }
+                    $subscriber->external_id = $customerId;
+    
+                    $address = $invoice["address"];
+                    if (isset($address)) {
+                        
+                        if (!isset($subscriber->address)) {
+                            $subscriber->address = $this->Subscribers->Addresses->newEntity();
+                        }
+                        $subscriber->address->street1 = $address["address1"];
+                        $subscriber->address->street2 = $address["address1"];
+                        $subscriber->address->city = $address["city"];
+                        $subscriber->address->state = $address["state"];
+                        $subscriber->address->zip = $address["zip"];
+                        $lastStep = "Address";
+                    }
 
-                if ($this->Subscribers->save($subscriber)) {
-                    $response = true;
-                } else {
-                    $response = false;
+                    if ($this->Subscribers->save($subscriber)) {
+                        $response = true;
+                    } else {
+                        $response = false;
+                    }
+                    $lastStep = "Saved";
                 }
             }
+            // De-activate when subscription ends
+            // $subscriber->active = false;
 
             $this->set(compact('response', 'customerId', 'lastStep'));
             $this->RequestHandler->renderAs($this, 'json');

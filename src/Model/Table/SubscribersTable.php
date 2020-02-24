@@ -16,7 +16,7 @@ class SubscribersTable extends Table
 
         $this->belongsTo('Addresses', [
             'foreignKey' => 'address_id',
-            'joinType' => 'INNER'
+            'joinType' => 'LEFT'
         ]);
     }
 
