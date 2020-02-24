@@ -72,10 +72,13 @@ class SubscribersController extends AppController
     */
     public function webhook() {
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $request = $this->request->getData();
-            $content = $request;
-            //$content = $request["content"]; Local Debug Only
-
+            // Local Debuggin
+            //$request = $this->request->getData();
+            //$content = $request["content"]; 
+            
+            // Live Get
+            $content = file_get_contents ("php://input");
+            
             if (strpos($content, "paid_charge_invoice_notification") == false) return;
 
             $xml = simplexml_load_string($content);
