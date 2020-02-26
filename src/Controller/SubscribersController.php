@@ -110,7 +110,7 @@ class SubscribersController extends AppController
                     $subscriber->first_name = $customer["first_name"];
                     $subscriber->last_name = $customer["last_name"];
                     $subscriber->email = $customer["email"];
-                    $subscriber->phone = $customer["phone"];
+                    $subscriber->phone = is_array($customer["phone"]) ? null : $customer["phone"];
                     $subscriber->active = true;
                     $subscriber->external_id = $customerId;
     
@@ -121,13 +121,14 @@ class SubscribersController extends AppController
                             $subscriber->address = $this->Subscribers->Addresses->newEntity();
                         }
                         $subscriber->address->street1 = $address["address1"];
-                        $subscriber->address->street2 = $address["address1"];
+                        $subscriber->address->street2 = is_array($address["address2"]) ? null : $address["address2"];
                         $subscriber->address->city = $address["city"];
                         $subscriber->address->state = $address["state"];
                         $subscriber->address->zip = $address["zip"];
                         $lastStep = "Address";
                     }
 
+                    //print_r($subscriber);
                     if ($this->Subscribers->save($subscriber)) {
                         $response = true;
                     } else {
