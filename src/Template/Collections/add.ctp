@@ -11,15 +11,64 @@ $( function() {
     $('#loadSubscriber').click(function(e) {
         e.preventDefault();
         $subscriberName = $('#subscriber-name').val();
-        window.location = "<?=$addUrl?>/" +  $subscriberName;
+        if ($subscriberName === "") {
+            console.log("GPS Time");
+            if (navigator.geolocation) {
+                console.log("Supports it");
+                navigator.geolocation.getCurrentPosition(getReverseGeocodingData, showError);
+                //(41.4950082,-81.5619442);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        } else {
+            // Search By Last Name
+            window.location = "<?=$addUrl?>/" +  $subscriberName;
+        }
         return false;
     });
 });
+
+
+function getReverseGeocodingData(position) {
+        var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        // This is making the Geocode request
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+            if (status !== google.maps.GeocoderStatus.OK) {
+                alert(status);
+            }
+            // This is checking to see if the Geoeode Status is OK before proceeding
+            if (status == google.maps.GeocoderStatus.OK) {
+                console.log(results);
+                var address = (results[0].formatted_address);
+                alert(address);
+            }
+        });
+    }
+
+function showError(error) {
+    var error = "";
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+        error= "User denied the request for Geolocation."
+        break;
+        case error.POSITION_UNAVAILABLE:
+        error = "Location information is unavailable."
+        break;
+        case error.TIMEOUT:
+        error = "The request to get user location timed out."
+        break;
+        case error.UNKNOWN_ERROR:
+        error = "An unknown error occurred."
+        break;
+    }
+    alert (error);
+}
 </script>
  <?= $this->Html->link('Pickup History', ['controller' => 'Collections', 'action' => 'index']); ?>
 <h3>Residential Tracking</h3>
 <?= $this->Form->create($collection, ['id' => 'addForm'])?>
-    <?= $this->Form->control('subscriber_name', ['type'=>'text', 'default' => $subscriberName, 'label' => 'Subscriber ID', 'placeholder'=>'first.last'] )?>
+    <?= $this->Form->control('subscriber_name', ['type'=>'text', 'default' => $subscriberName, 'label' => 'Subscriber Last Name', 'placeholder'=>'<Enter Last Name or Empty to Search by GPS>'] )?>
     <hr/>
     <?php if (isset($subscriber)) : ?>
         <div class="panel panel-default">
@@ -28,7 +77,6 @@ $( function() {
                 <?= $subscriber->street1 ?><br/>
                 <?= $subscriber->city ?>
             </div>
-            <div class="panel-footer"><?= $this->Html->link(__('more details...'), ['controller' => 'subscribers', 'action' => 'details', $subscriber->id]) ?></div>
         </div>
         <?php if (!$subscriber->active) : ?>
             <div class="alert alert-warning" role="alert">

@@ -47,12 +47,13 @@ class CollectionsController extends AppController
         }
 
         if ($subscriberName) {
-            $name = explode('.', $subscriberName);
             $subscriberQuery = $this->Collections->Subscriber->find('all', [
-                'conditions' => ['Subscriber.first_name' => $name[0], 'Subscriber.last_name' => $name[1]]]);
+                'conditions' => ['Subscriber.last_name LIKE' => $subscriberName . '%']]);
 
-            if ($subscriberQuery->count() > 0) {
+            if ($subscriberQuery->count() == 1) {
                 $subscriber = $subscriberQuery->first();
+            } else if ($subscriberQuery->count() > 1) {
+                $this->Flash->error(__('More than 1 Subscriber found. Try entering a complete last name.'));
             } else {
                 $this->Flash->error(__('Subscriber could not be found. Please try again.'));
             }
