@@ -38,6 +38,7 @@ class CollectionsController extends AppController
             $requestData = $this->request->getData();
             $requestData['pickup_date'] = date("Y-m-d H:i:s");
             $requestData['worker_user_id'] = $this->Auth->user('id');
+            //$requestData['subscriber_id'] = 
             $collection = $this->Collections->patchEntity($collection, $requestData );
             if ($this->Collections->save($collection)) {
                 $this->Flash->success(__('Collection added successfully.'));

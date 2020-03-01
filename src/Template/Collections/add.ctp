@@ -83,7 +83,7 @@ function showError(error) {
             This account is currently not Active!
             </div>
         <?php endif;?>
-
+        <?= $this->Form->control('subscriber_id', ['type'=>'hidden', 'value'=>$subscriber->id]) ?>
         <?= $this->Form->control('pounds'); ?> 
         <?= $this->Form->control('note', ['autocomplete' => 'off'])?>
         <p>
