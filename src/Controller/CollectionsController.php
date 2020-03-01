@@ -48,13 +48,12 @@ class CollectionsController extends AppController
 
         if ($search) {
             if (preg_match('~[0-9]+~', $search)) {
-                echo "House search";
                 $houseNumber = substr($search, 0, 2);
                 $subscriberQuery = $this->Collections->Subscriber->find('all', [
                     'conditions' => ['Addresses.street1 LIKE' => $houseNumber . '%'],
                     'contain' => ['Addresses']]);
+                $search = ""; // Blank out the GPS Address on return
             } else {
-                echo "Name Search";
                 $subscriberQuery = $this->Collections->Subscriber->find('all', [
                     'conditions' => ['Subscriber.last_name LIKE' => $search . '%'],
                     'contain' => ['Addresses']]);

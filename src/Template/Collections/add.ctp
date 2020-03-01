@@ -13,8 +13,8 @@ $( function() {
         $subscriberName = $('#subscriber-name').val();
         if ($subscriberName === "") {
             if (navigator.geolocation) {
-                getReverseGeocodingData(null);
-                //navigator.geolocation.getCurrentPosition(getReverseGeocodingData, showError);
+                //getReverseGeocodingData(null);
+                navigator.geolocation.getCurrentPosition(getReverseGeocodingData, showError);
             } else {
                 alert("Geolocation is not supported by this browser.");
             }
@@ -39,7 +39,7 @@ function getReverseGeocodingData(position) {
             if (status == google.maps.GeocoderStatus.OK) {
                 console.log(results);
                 var address = (results[0].formatted_address);
-                alert(address);
+                //alert(address);
                 // Search By Address
                 window.location = "<?=$addUrl?>/" +  address;
             }
