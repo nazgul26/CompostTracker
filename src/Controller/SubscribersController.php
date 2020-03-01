@@ -52,6 +52,10 @@ class SubscribersController extends AppController
         $this->set(compact('subscriber'));
     }
 
+    public function findByAddress($address) {
+
+    }
+
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);

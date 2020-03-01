@@ -32,7 +32,7 @@ class CollectionsController extends AppController
         $this->set('_serialize', ['collections']);
     }
 
-    public function add($subscriberName = null) {
+    public function add($search = null) {
         $collection = $this->Collections->newEntity();
         if ($this->request->is('post')) {
             $requestData = $this->request->getData();
@@ -46,20 +46,29 @@ class CollectionsController extends AppController
             $this->Flash->error(__('The collection could not be saved. Please, try again.'));
         }
 
-        if ($subscriberName) {
-            $subscriberQuery = $this->Collections->Subscriber->find('all', [
-                'conditions' => ['Subscriber.last_name LIKE' => $subscriberName . '%']]);
-
+        if ($search) {
+            if (preg_match('~[0-9]+~', $search)) {
+                echo "House search";
+                $houseNumber = substr($search, 0, 2);
+                $subscriberQuery = $this->Collections->Subscriber->find('all', [
+                    'conditions' => ['Addresses.street1 LIKE' => $houseNumber . '%'],
+                    'contain' => ['Addresses']]);
+            } else {
+                echo "Name Search";
+                $subscriberQuery = $this->Collections->Subscriber->find('all', [
+                    'conditions' => ['Subscriber.last_name LIKE' => $search . '%'],
+                    'contain' => ['Addresses']]);
+            }
             if ($subscriberQuery->count() == 1) {
                 $subscriber = $subscriberQuery->first();
             } else if ($subscriberQuery->count() > 1) {
                 $this->Flash->error(__('More than 1 Subscriber found. Try entering a complete last name.'));
             } else {
-                $this->Flash->error(__('Subscriber could not be found. Please try again.'));
+                $this->Flash->error(__('Subscriber could not be found. Please try again:' . $search));
             }
         }
 
-        $this->set(compact('collection', 'subscriber', 'subscriberName'));
+        $this->set(compact('collection', 'subscriber', 'search'));
         $this->set('_serialize', ['collection']);
     }
 

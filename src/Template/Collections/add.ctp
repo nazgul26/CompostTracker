@@ -12,11 +12,9 @@ $( function() {
         e.preventDefault();
         $subscriberName = $('#subscriber-name').val();
         if ($subscriberName === "") {
-            console.log("GPS Time");
             if (navigator.geolocation) {
-                console.log("Supports it");
-                navigator.geolocation.getCurrentPosition(getReverseGeocodingData, showError);
-                //(41.4950082,-81.5619442);
+                getReverseGeocodingData(null);
+                //navigator.geolocation.getCurrentPosition(getReverseGeocodingData, showError);
             } else {
                 alert("Geolocation is not supported by this browser.");
             }
@@ -30,8 +28,8 @@ $( function() {
 
 
 function getReverseGeocodingData(position) {
-        var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        // This is making the Geocode request
+        var latlng = new google.maps.LatLng(41.4950082,-81.5619442);
+        //var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         var geocoder = new google.maps.Geocoder();
         geocoder.geocode({ 'latLng': latlng }, function (results, status) {
             if (status !== google.maps.GeocoderStatus.OK) {
@@ -42,6 +40,8 @@ function getReverseGeocodingData(position) {
                 console.log(results);
                 var address = (results[0].formatted_address);
                 alert(address);
+                // Search By Address
+                window.location = "<?=$addUrl?>/" +  address;
             }
         });
     }
@@ -68,14 +68,14 @@ function showError(error) {
  <?= $this->Html->link('Pickup History', ['controller' => 'Collections', 'action' => 'index']); ?>
 <h3>Residential Tracking</h3>
 <?= $this->Form->create($collection, ['id' => 'addForm'])?>
-    <?= $this->Form->control('subscriber_name', ['type'=>'text', 'default' => $subscriberName, 'label' => 'Subscriber Last Name', 'placeholder'=>'<Enter Last Name or Empty to Search by GPS>'] )?>
+    <?= $this->Form->control('subscriber_name', ['type'=>'text', 'default' => $search, 'label' => 'Subscriber Last Name', 'placeholder'=>'<Enter Last Name or Empty to Search by GPS>'] )?>
     <hr/>
     <?php if (isset($subscriber)) : ?>
         <div class="panel panel-default">
             <div class="panel-body">
                 <?= $subscriber->first_name ?> <?= $subscriber->last_name ?><br/>
-                <?= $subscriber->street1 ?><br/>
-                <?= $subscriber->city ?>
+                <?= $subscriber->address->street1 ?><br/>
+                <?= $subscriber->address->city ?>
             </div>
         </div>
         <?php if (!$subscriber->active) : ?>
