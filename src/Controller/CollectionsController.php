@@ -34,6 +34,7 @@ class CollectionsController extends AppController
 
     public function add($search = null) {
         $collection = $this->Collections->newEntity();
+        $subscriber = null;
         if ($this->request->is('post')) {
             $requestData = $this->request->getData();
             $requestData['pickup_date'] = date("Y-m-d H:i:s");

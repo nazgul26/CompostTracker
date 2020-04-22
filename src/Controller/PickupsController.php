@@ -94,7 +94,7 @@ class PickupsController extends AppController
         }
         $containers = $this->Pickups->Locations->find('all')->where(['Locations.id' => $locationId])->contain(['Containers'])->limit(200);
 
-        $this->set(compact('clientId', 'siteId', 'locationId', 'pickup', 'users', 'clients', 'sites', 'locations', 'containers', 'dropoffs'));
+        $this->set(compact('clientId', 'siteId', 'locationId', 'pickup', 'clients', 'sites', 'locations', 'containers', 'dropoffs'));
         $this->set('_serialize', ['pickup']);
     }
 

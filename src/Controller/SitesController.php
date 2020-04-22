@@ -29,7 +29,7 @@ class SitesController extends AppController
             }
             $this->Flash->error(__('The site could not be saved. Please, try again.'));
         }
-        $this->set(compact('site', 'clients', 'siteId', 'clientId'));
+        $this->set(compact('site', 'siteId', 'clientId'));
         $this->set('_serialize', ['site']);
     }
 

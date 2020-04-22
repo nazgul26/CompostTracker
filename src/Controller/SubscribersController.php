@@ -4,8 +4,6 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\I18n\Time;
 use Cake\Core\Configure;
-use ChargeBee;
-use ChargeBee_Customer;
 use Cake\Event\Event;
 
 /*
@@ -24,16 +22,18 @@ class SubscribersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->loadComponent('Security');
+        $this->loadComponent('Csrf');
     }
 
-    public function beforeFilter(Event $event)
-    {
+
+    public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
 
-        // Disable for this page
-        $this->getEventManager()->off($this->Security);
-        $this->getEventManager()->off($this->Csrf);
+        $allowedActions = ['webhook'];
+        if (in_array($this->request->action, $allowedActions)) {
+            $this->eventManager()->off($this->Csrf);
+            $this->Security->config('unlockedActions', $allowedActions);
+        }
     }
 
     public function index()

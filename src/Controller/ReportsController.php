@@ -6,6 +6,7 @@ use Cake\ORM\TableRegistry;
 use App\Form\ReportsForm;
 use Cake\I18n\Time;
 use Cake\Core\Configure;
+use Cake\Datasource\ConnectionManager;
 
 class ReportsController extends AppController
 {
@@ -110,5 +111,36 @@ class ReportsController extends AppController
             $this->response->download("report.csv");
             $this->render('residential_export');
         }
+    }
+
+    public function monthly() {
+        //$authLevel = $this->Auth->user('access_level');
+        //if ($authLevel == Configure::read('AuthRoles.client')) {
+        //    $clientId = $this->Auth->user('client_id');
+        //}
+
+        $startDate = Time::now();
+        $startDate->subYears(1);
+
+        /*$conn = ConnectionManager::get('default');
+            
+        $stmt = $conn->execute('SELECT SUM(pounds) Pounds, MONTH(pickup_date) month, YEAR(pickup_date) Year  
+        FROM pickups 
+        WHERE pickup_date >= ?
+        GROUP BY MONTH(pickup_date), YEAR(pickup_date) ORDER BY YEAR(pickup_date), MONTH(pickup_date);', [$startDate]);
+        $row = $stmt->fetch('assoc');
+
+        // Read all rows.
+        $rows = $stmt->fetchAll('assoc');
+        
+        // Read rows through iteration.
+        foreach ($rows as $row) {
+            // Do work
+            echo print_r($row);
+        }
+
+        $this->set(compact('pickups'));*/
+        $this->render('monthy');
+        
     }
 }
