@@ -187,10 +187,10 @@ $cakeDescription = 'Rust Belt Riders';
     </div>
     <div class="shim"></div>
     <div class="footer social navbar-fixed-bottom">
-        <a href="https://facebook.com/rustbeltridersCLE" target="_blank"><i class="fab fa-facebook-square fa-2x"></i></a>
-        <a href="https://twitter.com/@rustbeltriders" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a>
-        <a href="mailto:support@rustbeltriders.com" target="_blank"><i class="fas fa-envelope-square fa-2x"></i></a>
-        <p>5401 Hamilton Avenue, Cleveland, OH, 44114, United States <br/>216-800-4651</p>
+        <a href="https://facebook.com/<?=env('COMPANY_FACEBOOK')?>" target="_blank"><i class="fab fa-facebook-square fa-2x"></i></a>
+        <a href="https://twitter.com/@<?=env('COMPANY_TWITTER')?>" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a>
+        <a href="mailto:<?=env('COMPANY_EMAIL')?>" target="_blank"><i class="fas fa-envelope-square fa-2x"></i></a>
+        <p><?= env('COMPANY_ADDRESS') ?><br/><?= env('COMPANY_PHONE_NUMBER') ?></p>
     </div>
 </body>
 </html>
