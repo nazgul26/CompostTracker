@@ -10,6 +10,18 @@ https://www.gnu.org/licenses/gpl-3.0.en.html
 * User Management for employees and customers.
 * Basic Reporting for volumes and invoicing needs.
 
+# Setup
+
+In order to run the Compost Tracker Application you must have a Web Hosting provider.  This is web application and must have some server software installed such as PHP and a database.
+
+The fastest way to get running will most likely be using a provider like Heroku.  With a service like Heroku, AWS, Azure you pay per time used on their servers.  Thus the pricing will scale with how much you and your users use the app.  Using Heroku could be a great way to try out the app and then you could later move it.  
+
+Steps -- [TBD]
+
+The second and very common way to run a PHP application is paying for hosting a traditional web hosting provider.  This would provide a fixed cost each month to run your application.  Most likely the basic level of hosting on many providers will be sufficient for many years of growing your business.  We would recommend SiteGround (https://www.siteground.com/) if you don't have a preference to start with.
+
+Steps -- [TBD]
+
 ## Setup for Local Development
 
 To start development your need to have
@@ -17,7 +29,7 @@ To start development your need to have
     * MySQL with a local db user created.
 
 Create a configuration file configs/.env
-
+```
 with contents (modify to fit your needs):
 export APP_NAME="rbr"
 export DEBUG="true"
@@ -31,6 +43,6 @@ export COMPANY_FACEBOOK = "yourFaceBookName"
 export COMPANY_EMAIL = "youremail@company.com";
 export COMPANY_TWITTER = "twitterName";
 export DATABASE_URL="mysql://db_user:db_password@localhost/${APP_NAME}?encoding=utf8&timezone=UTC&cacheMetadata=true&quoteIdentifiers=false&persistent=false"
-
+```
 
 
