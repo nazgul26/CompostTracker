@@ -6,9 +6,9 @@ https://www.gnu.org/licenses/gpl-3.0.en.html
 
 # Features
 
-* Tracking of commercial pickups
-* User Management for employees and customers
-* Basic Reporting
+* Tracking of commercial pickups.
+* User Management for employees and customers.
+* Basic Reporting for volumes and invoicing needs.
 
 ## Setup for Local Development
 
