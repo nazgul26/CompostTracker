@@ -1,10 +1,11 @@
-<div class="logo">
-    <?= $this->Html->image("logo_circle.png", ["alt" => "Rust Belt Riders", "class" => "center-block"])?>
+<div style="margin: auto; width: 10%;">
+    <div class="bigLogo">
+        <?= env('LOGO_LETTERS') ?>
+    </div>
 </div>
 <div class="users form">
 <?= $this->Form->create() ?>
     <fieldset>
-        <legend><?= __('Login') ?></legend>
         <?= $this->Form->control('username', ['autocomplete'=>'off']) ?>
         <?= $this->Form->control('password') ?>
 

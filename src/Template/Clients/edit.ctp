@@ -57,9 +57,5 @@ $( function() {
 <?php } ?>
 
 <?php if ($id) { ?>
-<nav class="navbar navbar-default">
-    <ul class="nav navbar-nav">
-        <li><?= $this->Html->link(__('New Site'), ['controller'=>'sites', 'action' => 'edit', $id]) ?></li>
-    </ul>
-</nav>
+<?= $this->Html->link(__('Add New Site'), ['controller'=>'sites', 'action' => 'edit', $id], ['class' => 'btn btn-primary', 'role' => 'button']) ?>
 <?php } ?>

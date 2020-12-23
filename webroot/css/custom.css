@@ -1,10 +1,29 @@
 body {
     background-color: #CAE6C7;
 }
-.logo img {
-    width: 100px;
+.bigLogo {
     height: 100px;
-}
+    width: 100px;
+    background-color: rgb(66, 131, 101);
+    color: #FFFFFF;
+    border-radius: 50%;
+    display: inline-block;
+    padding-top: 25px;
+    font-size: 3em;
+    padding-left: 10px;
+  }
+
+.smallLogo {
+    height: 50px;
+    width: 70px;
+    background-color: rgb(66, 131, 101);
+    color: #FFFFFF;
+    display: inline-block;
+    padding-top: 10px;
+    font-size: 2em;
+    padding-left: 5px;
+    margin-top: 10px;
+  }
 
 /* Boostrap Helps/Mods */
 .row-spaced {

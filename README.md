@@ -25,24 +25,27 @@ Steps -- [TBD]
 ## Setup for Local Development
 
 To start development your need to have
-    * PHP 7 (or higher) with ext-dom (sudo apt install php-xml)
-    * MySQL with a local db user created.
+    + PHP 7 (or higher) with ext-dom (sudo apt install php-xml)
+    + MySQL with a local db user created.
 
-Create a configuration file configs/.env
+Create a configuration file config/.env
 ```
 with contents (modify to fit your needs):
-export APP_NAME="rbr"
+export APP_NAME="CompostingTracker"
+export DATABASE_NAME="dbname"
 export DEBUG="true"
 export APP_ENCODING="UTF-8"
 export APP_DEFAULT_LOCALE="en_US"
 export APP_DEFAULT_TIMEZONE="UTC"
+export DATABASE_URL="mysql://db_user:db_password@localhost/${DATABASE_NAME}?encoding=utf8&timezone=UTC&cacheMetadata=true&quoteIdentifiers=false&persistent=false"
 export SECURITY_SALT="--------------replace with random string---------------------------------------"
+export LOGO_LETTERS="TBD"
 export COMPANY_PHONE_NUMBER = "216-555-5555"
 export COMPANY_ADDRESS = "555 Main St, Cleveland, OH, 44114, United States"
 export COMPANY_FACEBOOK = "yourFaceBookName"
 export COMPANY_EMAIL = "youremail@company.com";
 export COMPANY_TWITTER = "twitterName";
-export DATABASE_URL="mysql://db_user:db_password@localhost/${APP_NAME}?encoding=utf8&timezone=UTC&cacheMetadata=true&quoteIdentifiers=false&persistent=false"
+
 ```
 
 

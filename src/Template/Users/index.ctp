@@ -4,11 +4,6 @@ $( function() {
 });
 </script>
 
-<nav class="navbar navbar-default">
-    <ul class="nav navbar-nav">
-        <li><?= $this->Html->link(__('New User'), ['action' => 'edit']) ?></li>
-    </ul>
-</nav>
 <div class="users index large-9 medium-8 columns content">
     <h3><?= __('Users') ?></h3>
     <table class="table table-striped">
@@ -54,4 +49,6 @@ $( function() {
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <?= $this->Html->link(__('Add New User'), ['action' => 'edit'], ['class' => 'btn btn-primary', 'role' => 'button']) ?>
 </div>

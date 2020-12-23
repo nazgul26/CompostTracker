@@ -110,9 +110,5 @@
     <?php } else { ?>
             <div class="alert alert-warning">No Locations Setup</div>
     <?php } ?>
-    <nav class="navbar navbar-default">
-        <ul class="nav navbar-nav">
-            <li><?= $this->Html->link(__('New Location'), ['controller'=>'locations', 'action' => 'edit', $clientId, $siteId]) ?></li>
-        </ul>
-    </nav>
+    <?= $this->Html->link(__('Add New Location'), ['controller'=>'locations', 'action' => 'edit', $clientId, $siteId], ['class' => 'btn btn-primary', 'role' => 'button']) ?>
 <?php } ?>

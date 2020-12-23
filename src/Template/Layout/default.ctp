@@ -32,8 +32,6 @@ $cakeDescription = 'Rust Belt Riders';
     <?= $this->Html->css('custom') ?>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     
-    <?= $this->Html->script('https://maps.googleapis.com/maps/api/js?libraries=places,geometry&key=AIzaSyCOT70OMdcdZrHZKEOYc-tgsFLE8QriPOM')?>
-
     <?= $this->Html->script('Chart.bundle.min.js'); ?>
     <?= $this->Html->script('jquery.inputmask.bundle.min.js'); ?>
     <?= $this->Html->meta('favicon.ico','img/favicon.ico',array('type' => 'icon'));?>
@@ -42,17 +40,20 @@ $cakeDescription = 'Rust Belt Riders';
     <?= $this->fetch('script') ?>
 </head>
 <body>
+    <?php if (isset($userId)) : ?>
+
     <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header navHiRes">
-        <?= $this->Html->image("logo.png", ["alt" => "RBR", "class" => "brandImage navHiRes"])?>
+            <div class="smallLogo">
+                <?= env('LOGO_LETTERS') ?>
+            </div>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <?php 
-            if (isset($userId)) : 
                 if ($isEmployee) {
                     echo "<li id='navAddCommercialPickup'>";
                     echo $this->Html->link('<i class="fas fa-dolly-flatbed fa-2x"></i>', 
@@ -87,11 +88,6 @@ $cakeDescription = 'Rust Belt Riders';
                     </a>
                 </li>
                 <?php
-                //echo "<li>";
-                //echo $this->Html->link('<i class="fas fa-cogs fa-2x"></i>', 
-                //['controller' => 'Settings', 'action' => 'index'],
-                //['escape' => false, 'title' => 'Service Options']);
-                //echo "</li>";
             } else {?>
                 <?php if ($isEmployee) { ?>
                     <li class="dropdown navHiRes" id="navReports">
@@ -171,12 +167,13 @@ $cakeDescription = 'Rust Belt Riders';
                 ['escape' => false, 'title' => 'Sign Out']);
                 ?>
             </li>
-                    <?php endif; ?>
+
         </ul>
     </div>
 </div>
 </nav>
-
+<?php endif; ?>
+    <br/>
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
         <div class="panel panel-default">
