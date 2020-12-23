@@ -1,0 +1,5 @@
+{
+    "name": "CompostTracker",
+    "description": "Application for helping composting companies with tracking to provide basic Reporting for volumes and invoicing needs.",
+    "addons": ["heroku-postgresql:hobby-dev"]
+}

@@ -16,11 +16,11 @@ In order to run the Compost Tracker Application you must have a Web Hosting prov
 
 The fastest way to get running will most likely be using a provider like Heroku.  With a service like Heroku, AWS, Azure you pay per time used on their servers.  Thus the pricing will scale with how much you and your users use the app.  Using Heroku could be a great way to try out the app and then you could later move it.  
 
-Steps -- [TBD]
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 The second and very common way to run a PHP application is paying for hosting a traditional web hosting provider.  This would provide a fixed cost each month to run your application.  Most likely the basic level of hosting on many providers will be sufficient for many years of growing your business.  We would recommend SiteGround (https://www.siteground.com/) if you don't have a preference to start with.
 
-Steps -- [TBD]
+### Steps -- [TBD]
 
 ## Setup for Local Development
 
@@ -29,8 +29,11 @@ To start development your need to have
     + MySQL with a local db user created.
 
 Create a configuration file config/.env
-```
+
 with contents (modify to fit your needs):
+
+```
+
 export APP_NAME="CompostingTracker"
 export DATABASE_NAME="dbname"
 export DEBUG="true"
