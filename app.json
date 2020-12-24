@@ -3,10 +3,7 @@
     "description": "Application for helping composting companies with tracking to provide basic Reporting for volumes and invoicing needs.",
     "addons": ["heroku-postgresql:hobby-dev"],
     "scripts": {
-        "postdeploy": [
-            "chmod +x bin/cake",
-            "bin/cake migrations migrate --no-lock"
-        ]
+        "postdeploy": "bin/cake migrations migrate"
     },
     "env": {
         "SECURITY_SALT": {
