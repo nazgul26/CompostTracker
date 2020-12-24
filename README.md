@@ -18,7 +18,9 @@ The fastest way to get running will most likely be using a provider like Heroku.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-To get updates of the application you will need to configure the 'Deploy' tab in Heroku to integrate with GitHub - https://devcenter.heroku.com/articles/github-integration
++ Create a Heroku Account if you don't already have one
++ Set the variables when prompted before deploying.
++ Configure the 'Deploy' tab in Heroku to integrate with GitHub for updates - https://devcenter.heroku.com/articles/github-integration
 
 The second and very common way to run a PHP application is paying for hosting a traditional web hosting provider.  This would provide a fixed cost each month to run your application.  Most likely the basic level of hosting on many providers will be sufficient for many years of growing your business.  We would recommend SiteGround (https://www.siteground.com/) if you don't have a preference to start with.
 

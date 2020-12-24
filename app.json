@@ -2,6 +2,9 @@
     "name": "CompostTracker",
     "description": "Application for helping composting companies with tracking to provide basic Reporting for volumes and invoicing needs.",
     "addons": ["heroku-postgresql:hobby-dev"],
+    "scripts": {
+        "postdeploy": "php app/console doctrine:migrations:migrate"
+    },
     "env": {
         "SECURITY_SALT": {
           "description": "Security salt used for encryption",
