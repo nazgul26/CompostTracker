@@ -374,16 +374,6 @@ class Initial extends AbstractMigration
                 ['unique' => true]
             )
             ->create();
-
-                    // inserting only one row
-        $adminUser = [
-            'username'    => 'admin',
-            'email'  => 'admin@yourcompany.com'
-        ];
-
-        $table = $this->table('users');
-        $table->insert($adminUser);
-        $table->saveData();
     }
 
     public function down()
