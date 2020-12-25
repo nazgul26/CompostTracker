@@ -20,6 +20,12 @@ The fastest way to get running is using a provider like Heroku.
 + Set the variables when prompted before deploying.
 + Configure the 'Deploy' tab in Heroku to integrate with GitHub for updates - https://devcenter.heroku.com/articles/github-integration
 
+The default login of the application is --
+
+User:admin
+Password: passwd.
+**CHANGE THE PASSWORD** of your application after login.
+
 The second and very common way to run a PHP application is paying for hosting a traditional web hosting provider.  This would provide a fixed cost each month to run your application.  Most likely the basic level of hosting on many providers will be sufficient for many years of growing your business.  We would recommend SiteGround (https://www.siteground.com/) if you don't have a preference to start with.
 
 
