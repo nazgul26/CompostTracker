@@ -53,4 +53,6 @@ export COMPANY_TWITTER = "twitterName";
 
 ```
 
+Edit the ./.htaccess file and comment out the https redirect lines.
+
 
