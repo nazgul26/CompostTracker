@@ -31,6 +31,10 @@
             "description": "Letters used on login/top nav for logo.",
             "value": "TBD"
         },
+        "COMPANY_NAME": {
+            "description": "Your companies name",
+            "value": "Compost R Us"
+        },
         "COMPANY_PHONE_NUMBER": {
             "description": "Your companies phone number",
             "value": "216-555-5555"

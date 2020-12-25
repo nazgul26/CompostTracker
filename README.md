@@ -12,9 +12,7 @@ https://www.gnu.org/licenses/gpl-3.0.en.html
 
 # Setup
 
-In order to run the Compost Tracker Application you must have a Web Hosting provider.  This is web application and must have some server software installed such as PHP and a database.
-
-The fastest way to get running will most likely be using a provider like Heroku.  With a service like Heroku, AWS, Azure you pay per time used on their servers.  Thus the pricing will scale with how much you and your users use the app.  Using Heroku could be a great way to try out the app and then you could later move it.  
+The fastest way to get running is using a provider like Heroku.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
@@ -24,7 +22,6 @@ The fastest way to get running will most likely be using a provider like Heroku.
 
 The second and very common way to run a PHP application is paying for hosting a traditional web hosting provider.  This would provide a fixed cost each month to run your application.  Most likely the basic level of hosting on many providers will be sufficient for many years of growing your business.  We would recommend SiteGround (https://www.siteground.com/) if you don't have a preference to start with.
 
-### Steps -- [TBD]
 
 ## Setup for Local Development
 
@@ -46,7 +43,8 @@ export APP_DEFAULT_LOCALE="en_US"
 export APP_DEFAULT_TIMEZONE="UTC"
 export DATABASE_URL="mysql://db_user:db_password@localhost/${DATABASE_NAME}?encoding=utf8&timezone=UTC&cacheMetadata=true&quoteIdentifiers=false&persistent=false"
 export SECURITY_SALT="--------------replace with random string---------------------------------------"
-export LOGO_LETTERS="TBD"
+export COMPANY_NAME="Compost R Us"
+export LOGO_LETTERS="CRU"
 export COMPANY_PHONE_NUMBER = "216-555-5555"
 export COMPANY_ADDRESS = "555 Main St, Cleveland, OH, 44114, United States"
 export COMPANY_FACEBOOK = "yourFaceBookName"
