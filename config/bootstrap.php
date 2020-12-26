@@ -201,3 +201,28 @@ Type::build('timestamp')
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
+
+Configure::write('AuthRoles', array(
+    'residential' => 20, // Residential Customer
+    'client' => 30, // External access
+    'user' => 60, // add pickups only
+    'admin'=> 90 // Site Admin Level Access
+));
+
+// For UI / Edit
+Configure::write('AuthRolesList', array(
+    0 => '',
+    20 => 'Residential', // Residential Customer
+    30 => 'Client', // External access
+    60 => 'User', // add pickups only
+    90 => 'Administrator' // Site Admin Level Access
+));
+
+Configure::write('DaysOfWeek', [
+    0 => 'Sunday', 
+    1 => 'Monday', 
+    2 => 'Tuesday', 
+    3 => 'Wednesday', 
+    4 => 'Thursday', 
+    5 => 'Friday', 
+    6 => 'Saturday']);

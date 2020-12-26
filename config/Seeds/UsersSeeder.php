@@ -11,12 +11,9 @@ class UsersSeeder extends AbstractSeed
             [
                 'username'    => 'admin',
                 'email'  => 'admin@yourcompany.com',
+                'access_level' => 90,
                 'password' => (new DefaultPasswordHasher)->hash("passwd")
             ]
-            
-        //    ,[
-        //      ...
-        //    ]
         ];
 
         $posts = $this->table('users');
