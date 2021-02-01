@@ -120,6 +120,12 @@ CREATE TABLE dropoffs (
 	PRIMARY KEY (id)
 );
 
+CREATE TABLE piles (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255) NOT NULL,
+	PRIMARY KEY (id)
+)
+
 
 INSERT INTO containers (name, gallons) VALUES ('Toter', 5);
 INSERT INTO containers (name, gallons) VALUES ('17 Gal', 17);
