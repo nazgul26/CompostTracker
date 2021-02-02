@@ -8,7 +8,7 @@
         <?= $this->fetch('title') ?>
     </title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.10.1/js/all.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
  
@@ -48,6 +48,12 @@
                     echo $this->Html->link('<i class="fas fa-dolly fa-2x"></i>', 
                     ['controller' => 'Collections', 'action' => 'add'],
                     ['escape' => false, 'title' => 'Add Residential Collections']);
+                    echo "</li>";
+
+                    echo "<li id='navActivePiles'>";
+                    echo $this->Html->link('<i class="fas fa-mountain fa-2x"></i>', 
+                    ['controller' => 'ActivePiles', 'action' => 'index'],
+                    ['escape' => false, 'title' => 'Manage Compost Piles']);
                     echo "</li>";
                 }
             ?>
@@ -125,6 +131,10 @@
                     <li>
                         <?= $this->Html->link('Drop Off Locations', 
                         ['controller' => 'Dropoffs', 'action' => 'index']);?>
+                    </li>
+                    <li>
+                        <?= $this->Html->link('Pile Locations', 
+                        ['controller' => 'PileLocations', 'action' => 'index']);?>
                     </li>
                     <?php } ?>
                 </ul>

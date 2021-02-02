@@ -7,16 +7,18 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Piles Model
+ * ActivePiles Model
  *
- * @method \App\Model\Entity\Pile get($primaryKey, $options = [])
- * @method \App\Model\Entity\Pile newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Pile[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Pile|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Pile saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Pile patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Pile[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Pile findOrCreate($search, callable $callback = null, $options = [])
+ * @property \App\Model\Table\PilesTable&\Cake\ORM\Association\BelongsTo $Piles
+ *
+ * @method \App\Model\Entity\ActivePile get($primaryKey, $options = [])
+ * @method \App\Model\Entity\ActivePile newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\ActivePile[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\ActivePile|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\ActivePile saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\ActivePile patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\ActivePile[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\ActivePile findOrCreate($search, callable $callback = null, $options = [])
  */
 class PilesTable extends Table
 {
@@ -31,8 +33,12 @@ class PilesTable extends Table
         parent::initialize($config);
 
         $this->setTable('piles');
-        $this->setDisplayField('name');
+        $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->belongsTo('PileLocations', [
+            'foreignKey' => 'pile_location_id',
+        ]);
     }
 
     /**
@@ -48,11 +54,24 @@ class PilesTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->scalar('name')
-            ->maxLength('name', 255)
-            ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+            ->scalar('comment')
+            ->maxLength('comment', 255)
+            ->allowEmptyString('comment');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['pile_id'], 'Piles'));
+
+        return $rules;
     }
 }

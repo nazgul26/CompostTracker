@@ -120,9 +120,17 @@ CREATE TABLE dropoffs (
 	PRIMARY KEY (id)
 );
 
-CREATE TABLE piles (
+CREATE TABLE pile_locations (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(255) NOT NULL,
+	PRIMARY KEY (id)
+)
+
+CREATE TABLE piles (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`pile_location_id` INT NULL REFERENCES pile_locations(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
+	`comment` VARCHAR(255),
+	`created` DATETIME,
 	PRIMARY KEY (id)
 )
 

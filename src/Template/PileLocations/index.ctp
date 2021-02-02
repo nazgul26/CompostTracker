@@ -5,7 +5,7 @@ $( function() {
 </script>
 
 <div class="piles index large-9 medium-8 columns content">
-    <h3><?= __('Piles') ?></h3>
+    <h3><?= __('Pile Locations') ?></h3>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -34,5 +34,5 @@ $( function() {
             <?= $this->Paginator->last(__('last') . ' >>') ?>
         </ul>
     </div>
-    <?= $this->Html->link(__('Add New Pile'), ['action' => 'edit'], ['class' => 'btn btn-primary', 'role' => 'button']) ?>
+    <?= $this->Html->link(__('Add New Pile Location'), ['action' => 'edit'], ['class' => 'btn btn-primary', 'role' => 'button']) ?>
 </div>

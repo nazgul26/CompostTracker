@@ -4,12 +4,12 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Pile Entity
+ * PileLocation Entity
  *
  * @property int $id
  * @property string $name
  */
-class Pile extends Entity
+class PileLocation extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
