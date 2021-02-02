@@ -52,7 +52,7 @@
 
                     echo "<li id='navActivePiles'>";
                     echo $this->Html->link('<i class="fas fa-mountain fa-2x"></i>', 
-                    ['controller' => 'ActivePiles', 'action' => 'index'],
+                    ['controller' => 'Piles', 'action' => 'index'],
                     ['escape' => false, 'title' => 'Manage Compost Piles']);
                     echo "</li>";
                 }

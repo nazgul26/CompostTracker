@@ -17,12 +17,17 @@ class PilesController extends AppController
 
     public function edit($id = null)
     {
-        $activePile = $this->Piles->get($id, [
-            'contain' => [],
-        ]);
+        // Edit
+        if ($id) {
+            $pile = $this->Piles->get($id);
+        } else {  
+        // Add - first load
+            $pile = $this->Piles->newEntity();
+        }
+
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $activePile = $this->Piles->patchEntity($activePile, $this->request->getData());
-            if ($this->Piles->save($activePile)) {
+            $pile = $this->Piles->patchEntity($pile, $this->request->getData());
+            if ($this->Piles->save($pile)) {
                 $this->Flash->success(__('The active pile has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -30,7 +35,7 @@ class PilesController extends AppController
             $this->Flash->error(__('The active pile could not be saved. Please, try again.'));
         }
         $pileLocations = $this->Piles->PileLocations->find('list', ['limit' => 200]);
-        $this->set(compact('pile', 'pileLocations'));
+        $this->set(compact('pile', 'pileLocations', 'id'));
     }
 
 

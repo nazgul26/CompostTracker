@@ -6,28 +6,8 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-/**
- * ActivePiles Model
- *
- * @property \App\Model\Table\PilesTable&\Cake\ORM\Association\BelongsTo $Piles
- *
- * @method \App\Model\Entity\ActivePile get($primaryKey, $options = [])
- * @method \App\Model\Entity\ActivePile newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\ActivePile[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\ActivePile|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\ActivePile saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\ActivePile patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\ActivePile[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\ActivePile findOrCreate($search, callable $callback = null, $options = [])
- */
 class PilesTable extends Table
 {
-    /**
-     * Initialize method
-     *
-     * @param array $config The configuration for the Table.
-     * @return void
-     */
     public function initialize(array $config)
     {
         parent::initialize($config);
@@ -70,7 +50,7 @@ class PilesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['pile_id'], 'Piles'));
+        $rules->add($rules->existsIn(['pile_location_id'], 'PileLocations'));
 
         return $rules;
     }
