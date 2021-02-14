@@ -9,6 +9,8 @@
     </title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.10.1/js/all.js" crossorigin="anonymous"></script>
+    
+    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
  
@@ -77,6 +79,10 @@
                     <li>
                         <?= $this->Html->link('Residential Reports', 
                         ['controller' => 'Reports', 'action' => 'residential']); ?>
+                    </li>
+                    <li>
+                        <?= $this->Html->link('Compost Piles Reports', 
+                        ['controller' => 'Reports', 'action' => 'piles']); ?>
                     </li>
                 </ul>
             </li>

@@ -129,8 +129,35 @@ CREATE TABLE pile_locations (
 CREATE TABLE piles (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`pile_location_id` INT NULL REFERENCES pile_locations(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
+	`active` BIT DEFAULT 1,
+	`done_date` DATE NULL,
+	`total_turns` INT DEFAULT 0,
+	`turn_status` INT NULL,
+	`turned_last` DATE NULL,
+	`temp_last` DATE NULL,
 	`comment` VARCHAR(255),
 	`created` DATETIME,
+	`user_id` INT NULL REFERENCES users(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
+	PRIMARY KEY (id)
+)
+
+CREATE TABLE pile_temperatures (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`pile_id` INT NULL REFERENCES piles(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
+	`temp1` INT NULL,
+	`temp2` INT NULL,
+	`temp3` INT NULL,
+	`comment` VARCHAR(255),
+	`created` DATETIME,
+	`user_id` INT NULL REFERENCES users(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
+	PRIMARY KEY (id)
+)
+
+CREATE TABLE pile_turns (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`pile_id` INT NULL REFERENCES piles(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
+	`created` DATETIME,
+	`user_id` INT NULL REFERENCES users(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
 	PRIMARY KEY (id)
 )
 

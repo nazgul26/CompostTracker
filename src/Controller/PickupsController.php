@@ -59,7 +59,6 @@ class PickupsController extends AppController
         $pickup = $this->Pickups->newEntity();
         if ($this->request->is('post')) {
             $requestData = $this->request->getData();
-            date_default_timezone_set('US/Eastern');
             $requestData['pickup_date'] = date("Y-m-d H:i:s");
             $requestData['user_id'] = $this->Auth->user('id');
 

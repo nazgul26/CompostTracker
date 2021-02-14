@@ -16,9 +16,22 @@ class PilesTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->addBehavior('Timestamp');
+        
         $this->belongsTo('PileLocations', [
             'foreignKey' => 'pile_location_id',
         ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id'
+        ]);
+
+        $this->hasMany('PileTemperatures', [
+            'foreignKey' => 'pile_id'
+        ])->sort(['PileTemperatures.created' => 'DESC']);
+
+        $this->hasMany('PileTurns', [
+            'foreignKey' => 'pile_id'
+        ])->sort(['PileTurns.created' => 'DESC']);;
     }
 
     /**

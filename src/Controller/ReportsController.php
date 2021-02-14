@@ -140,7 +140,30 @@ class ReportsController extends AppController
         }
 
         $this->set(compact('pickups'));*/
-        $this->render('monthy');
-        
+        $this->render('monthy'); 
+    }
+
+    public function piles() {
+        $report = new ReportsForm();
+        $this->set(compact('report'));
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $requestData = $this->request->getData();
+            $startDate = new Time($requestData['start_date']['year'] . '/' . $requestData['start_date']['month'] . '/' . $requestData['start_date']['day'] . " 00:00");
+            $endDate = new Time($requestData['end_date']['year'] . '/' . $requestData['end_date']['month'] . '/' . $requestData['end_date']['day'] . " 24:00");
+            
+            $pilesTable = TableRegistry::get('Piles');
+            $piles = $pilesTable->find('all',
+            [
+                'conditions' => ['Piles.created >= ' => $startDate, 'Piles.done_date <= ' => $endDate],
+                'contain' => ['PileLocations', 'PileTemperatures' => ['Users'], 'PileTurns' => ['Users'], 'Users'],
+                'order' => ['Piles.created']
+            ]);
+            $piles->execute();
+ 
+            $this->set(compact('piles'));
+            $this->response->download("report.csv");
+            $this->render('piles_export');
+        }
     }
 }

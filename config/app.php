@@ -255,7 +255,6 @@ return [
         'default' => [
             'className' => Connection::class,
             'persistent' => false,
-            'timezone' => 'UTC',
             'flags' => [],
             'cacheMetadata' => true,
             'log' => false,

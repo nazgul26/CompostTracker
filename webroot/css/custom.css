@@ -126,3 +126,9 @@ body {
     padding: 1em;
     margin-bottom: 1em;
 }
+
+/* Bootstrap Mods */
+.form-group.radio > label {
+    font-weight: bold;
+    padding-left: 0px;
+}
