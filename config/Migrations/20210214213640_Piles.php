@@ -85,8 +85,8 @@ class Piles extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('active', 'string', [
-                'default' => 'b\'1\'',
+            ->addColumn('active', 'boolean', [
+                'default' => true,
                 'limit' => null,
                 'null' => true,
             ])

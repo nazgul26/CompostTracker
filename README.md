@@ -7,6 +7,7 @@ https://www.gnu.org/licenses/gpl-3.0.en.html
 # Features
 
 * Tracking of commercial pickups.
+* Compost Pile Temperature / Turn Tracking
 * User Management for employees and customers.
 * Basic Reporting for volumes and invoicing needs.
 

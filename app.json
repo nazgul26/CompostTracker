@@ -25,7 +25,7 @@
             "value": "en_US"
         },
         "APP_DEFAULT_TIMEZONE": {
-            "value": "UTC"
+            "value": "US/Eastern"
         },
         "LOGO_LETTERS": {
             "description": "Letters used on login/top nav for logo.",
