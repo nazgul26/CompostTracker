@@ -7,9 +7,15 @@ class PileTemperaturesController extends AppController
 {
     public function edit($pileId = null, $id = null)
     {
-        $pileTemperature = $this->PileTemperatures->get($id, [
-            'contain' => [],
-        ]);
+        if ($id) {
+            $pileTemperature = $this->PileTemperatures->get($id);
+        } else {  
+            // Add - first load
+            $pileTemperature = $this->PileTemperatures->newEntity();
+            $pileTemperature->user_id = $this->Auth->user('id');
+            $pileTemperature->pile_id = $pileId;
+        }
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $pileTemperature = $this->PileTemperatures->patchEntity($pileTemperature, $this->request->getData());
             if ($this->PileTemperatures->save($pileTemperature)) {
@@ -19,9 +25,8 @@ class PileTemperaturesController extends AppController
             }
             $this->Flash->error(__('The pile temperature could not be saved. Please, try again.'));
         }
-        $piles = $this->PileTemperatures->Piles->find('list', ['limit' => 200]);
         $users = $this->PileTemperatures->Users->find('list', ['limit' => 200]);
-        $this->set(compact('pileTemperature', 'piles', 'users', 'pileId', 'id'));
+        $this->set(compact('pileTemperature', 'users', 'pileId', 'id'));
     }
 
     public function delete($pileId = null, $id = null)

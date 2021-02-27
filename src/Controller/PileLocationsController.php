@@ -7,7 +7,7 @@ class PileLocationsController extends AppController
 {
     public function index()
     {
-        $piles = $this->paginate($this->PileLocations);
+        $piles = $this->paginate($this->PileLocations, ['order' => ['PileLocations.name']]);
         $this->set(compact('piles'));
     }
 

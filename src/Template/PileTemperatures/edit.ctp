@@ -10,6 +10,7 @@
         <legend><?= __('Edit Pile Temperature') ?></legend>
         <?php
             echo $this->Form->hidden('pile_id');
+            echo $this->Form->control('created');
             echo $this->Form->control('temp1');
             echo $this->Form->control('temp2');
             echo $this->Form->control('temp3');
