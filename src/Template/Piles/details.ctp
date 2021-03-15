@@ -70,5 +70,7 @@
     </tbody>
     </table>
     <?= $this->Html->link(__('Add Turn'), ['controller' => 'PileTurns', 'action' => 'edit', $pile->id], ['class' => 'btn btn-success', 'role' => 'button', 'style' => 'width: 100%; font-size: 2em;']) ?>
+    <br/><br/>
+    <?= $this->Html->link(__('Pile Is Done'), ['action' => 'done', $pile->id], ['class' => 'btn btn-info', 'role' => 'button', 'style' => 'width: 100%; font-size: 2em;']) ?>
   </div>
 </div>
